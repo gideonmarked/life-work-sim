@@ -1,0 +1,215 @@
+{
+  "version": 1,
+  "description": "All career-related data: branches, positions, salaries, requirements, and progression",
+
+  "categories": {
+    "Business": {
+      "description": "Corporate ladder climbers and money makers",
+      "branches": ["Corporate", "Merchant", "Investor"],
+      "color": "#f5a623"
+    },
+    "Art": {
+      "description": "Creative souls with royalty potential",
+      "branches": ["Author", "VisualArtist", "Musician"],
+      "color": "#b794f6",
+      "has_royalties": true
+    },
+    "Innovation": {
+      "description": "Tech and science pioneers",
+      "branches": ["Coder", "Scientist", "Engineer"],
+      "color": "#4dd4a0",
+      "has_royalties_for": ["Coder"]
+    }
+  },
+
+  "branches": {
+    "Corporate": {
+      "display_name": "Corporate",
+      "category": "Business",
+      "description": "Climb the corporate ladder from coffee runs to the executive suite",
+      "starting_items": [],
+      "positions": [
+        { "level": 1, "title": "Coffee Courier", "base_pay_per_hour": 6, "requires": [], "grants": ["reusable_cup"], "pp_to_next": 720 },
+        { "level": 2, "title": "Meeting Note Ninja", "base_pay_per_hour": 7, "requires": ["notebook"], "grants": ["pen_basic"], "pp_to_next": 1580 },
+        { "level": 3, "title": "Email Polisher", "base_pay_per_hour": 8, "requires": [], "grants": ["polite_template_pack"], "pp_to_next": 4420 },
+        { "level": 4, "title": "Administrative Assistant", "base_pay_per_hour": 12, "requires": ["office_access_badge"], "grants": ["office_access_badge"], "pp_to_next": 11050 },
+        { "level": 5, "title": "Operations Coordinator", "base_pay_per_hour": 16, "requires": ["office_access_badge", "smartphone_cheap"], "grants": ["smartphone_cheap"], "pp_to_next": 24310 },
+        { "level": 6, "title": "Business Analyst", "base_pay_per_hour": 22, "requires": ["office_access_badge", "laptop_basic"], "grants": ["laptop_basic"], "pp_to_next": 48620 },
+        { "level": 7, "title": "Project Manager", "base_pay_per_hour": 30, "requires": ["office_access_badge", "laptop_basic"], "grants": ["planner_app_license"], "pp_to_next": 92380 },
+        { "level": 8, "title": "Department Manager", "base_pay_per_hour": 40, "requires": ["office_access_badge", "laptop_basic"], "grants": ["office_chair_voucher"], "pp_to_next": 166280 },
+        { "level": 9, "title": "Director", "base_pay_per_hour": 55, "requires": ["office_access_badge", "laptop_basic"], "grants": ["corner_desk"], "pp_to_next": 282680 },
+        { "level": 10, "title": "Executive", "base_pay_per_hour": 75, "requires": ["office_access_badge", "laptop_basic"], "grants": ["executive_mug"], "pp_to_next": null }
+      ]
+    },
+    "Merchant": {
+      "display_name": "Merchant",
+      "category": "Business",
+      "description": "Buy low, sell high, become a retail tycoon",
+      "starting_items": [],
+      "positions": [
+        { "level": 1, "title": "Street Vendor", "base_pay_per_hour": 7, "requires": [], "grants": ["small_pouch"], "pp_to_next": 550 },
+        { "level": 2, "title": "Deal Hunter", "base_pay_per_hour": 8, "requires": [], "grants": ["price_tag_roll"], "pp_to_next": 1320 },
+        { "level": 3, "title": "Sticker Price Expert", "base_pay_per_hour": 9, "requires": [], "grants": ["marker_basic"], "pp_to_next": 4220 },
+        { "level": 4, "title": "Shopkeeper", "base_pay_per_hour": 14, "requires": ["basic_shelf_crate"], "grants": ["basic_shelf_crate"], "pp_to_next": 10970 },
+        { "level": 5, "title": "Online Seller", "base_pay_per_hour": 18, "requires": ["smartphone_cheap"], "grants": ["shipping_tape"], "pp_to_next": 25230 },
+        { "level": 6, "title": "Inventory Manager", "base_pay_per_hour": 24, "requires": ["basic_shelf_crate", "notebook"], "grants": ["barcode_stickers"], "pp_to_next": 52980 },
+        { "level": 7, "title": "Store Manager", "base_pay_per_hour": 32, "requires": ["basic_shelf_crate"], "grants": ["pos_device_basic"], "pp_to_next": 100660 },
+        { "level": 8, "title": "Business Owner", "base_pay_per_hour": 45, "requires": ["pos_device_basic"], "grants": ["signboard"], "pp_to_next": 181190 },
+        { "level": 9, "title": "Wholesale Supplier", "base_pay_per_hour": 60, "requires": ["pos_device_basic"], "grants": ["hand_truck"], "pp_to_next": 308020 },
+        { "level": 10, "title": "Merchant Tycoon", "base_pay_per_hour": 85, "requires": ["pos_device_basic"], "grants": ["golden_price_gun"], "pp_to_next": null }
+      ]
+    },
+    "Investor": {
+      "display_name": "Investor",
+      "category": "Business",
+      "description": "Master the markets and manage portfolios",
+      "starting_items": [],
+      "positions": [
+        { "level": 1, "title": "Chart Watcher", "base_pay_per_hour": 6, "requires": [], "grants": ["newspaper_fun"], "pp_to_next": 840 },
+        { "level": 2, "title": "Paper Trader", "base_pay_per_hour": 7, "requires": [], "grants": ["fake_portfolio_notebook"], "pp_to_next": 1930 },
+        { "level": 3, "title": "Rumor Collector", "base_pay_per_hour": 8, "requires": [], "grants": ["hot_tip_coupon"], "pp_to_next": 5790 },
+        { "level": 4, "title": "Retail Investor", "base_pay_per_hour": 12, "requires": ["smartphone_cheap"], "grants": ["smartphone_cheap"], "pp_to_next": 15050 },
+        { "level": 5, "title": "Portfolio Manager (Personal)", "base_pay_per_hour": 18, "requires": ["smartphone_cheap"], "grants": ["finance_app_subscription"], "pp_to_next": 33110 },
+        { "level": 6, "title": "Active Trader", "base_pay_per_hour": 24, "requires": ["smartphone_cheap"], "grants": ["power_bank"], "pp_to_next": 66220 },
+        { "level": 7, "title": "Value Investor", "base_pay_per_hour": 30, "requires": ["smartphone_cheap"], "grants": ["long_term_glasses"], "pp_to_next": 125820 },
+        { "level": 8, "title": "Risk Manager", "base_pay_per_hour": 40, "requires": ["smartphone_cheap"], "grants": ["risk_log_notebook"], "pp_to_next": 226480 },
+        { "level": 9, "title": "Fund Manager", "base_pay_per_hour": 55, "requires": ["smartphone_cheap", "laptop_basic"], "grants": ["laptop_basic"], "pp_to_next": 385020 },
+        { "level": 10, "title": "Investment Director", "base_pay_per_hour": 75, "requires": ["smartphone_cheap", "laptop_basic"], "grants": ["dual_monitor_voucher"], "pp_to_next": null }
+      ]
+    },
+    "Coder": {
+      "display_name": "Coder",
+      "category": "Innovation",
+      "description": "Write code, ship apps, and maybe create the next big thing",
+      "starting_items": ["notebook"],
+      "can_create_releases": true,
+      "release_type": "App/Game",
+      "positions": [
+        { "level": 1, "title": "App Suggester", "base_pay_per_hour": 4, "requires": ["notebook"], "grants": ["pencil_basic"], "pp_to_next": 810 },
+        { "level": 2, "title": "Feature List Farmer", "base_pay_per_hour": 5, "requires": ["notebook"], "grants": ["sticky_notes_pack"], "pp_to_next": 1860 },
+        { "level": 3, "title": "UI Sketcher", "base_pay_per_hour": 6, "requires": ["notebook"], "grants": ["toy_laptop"], "pp_to_next": 5580 },
+        { "level": 4, "title": "Junior Programmer", "base_pay_per_hour": 12, "requires": ["laptop_basic"], "grants": ["laptop_basic"], "pp_to_next": 14510 },
+        { "level": 5, "title": "Frontend Developer", "base_pay_per_hour": 16, "requires": ["laptop_basic"], "grants": ["mouse_basic"], "pp_to_next": 33370 },
+        { "level": 6, "title": "Backend Developer", "base_pay_per_hour": 18, "requires": ["laptop_basic"], "grants": ["usb_drive_basic"], "pp_to_next": 70080 },
+        { "level": 7, "title": "Full-Stack Developer", "base_pay_per_hour": 24, "requires": ["laptop_work"], "grants": ["rubber_duck"], "pp_to_next": 140160 },
+        { "level": 8, "title": "Senior Software Engineer", "base_pay_per_hour": 34, "requires": ["laptop_work"], "grants": ["external_monitor"], "pp_to_next": 252290 },
+        { "level": 9, "title": "Tech Lead", "base_pay_per_hour": 45, "requires": ["laptop_work"], "grants": ["planner_whiteboard"], "pp_to_next": 428890 },
+        { "level": 10, "title": "Software Architect", "base_pay_per_hour": 58, "requires": ["laptop_work", "external_monitor"], "grants": ["headphones_noise_cancel"], "pp_to_next": null }
+      ]
+    },
+    "Scientist": {
+      "display_name": "Scientist",
+      "category": "Innovation",
+      "description": "Research, experiment, and push the boundaries of knowledge",
+      "starting_items": [],
+      "positions": [
+        { "level": 1, "title": "Label Sticker Intern", "base_pay_per_hour": 4, "requires": [], "grants": ["lab_labels_pack"], "pp_to_next": 900 },
+        { "level": 2, "title": "Beaker Rinser", "base_pay_per_hour": 5, "requires": [], "grants": ["gloves_basic"], "pp_to_next": 2070 },
+        { "level": 3, "title": "Notebook Observer", "base_pay_per_hour": 6, "requires": ["notebook"], "grants": ["safety_goggles"], "pp_to_next": 6420 },
+        { "level": 4, "title": "Lab Assistant", "base_pay_per_hour": 12, "requires": ["notebook"], "grants": ["basic_lab_kit"], "pp_to_next": 16050 },
+        { "level": 5, "title": "Research Assistant", "base_pay_per_hour": 15, "requires": ["basic_lab_kit"], "grants": ["calculator"], "pp_to_next": 35310 },
+        { "level": 6, "title": "Research Associate", "base_pay_per_hour": 18, "requires": ["basic_lab_kit"], "grants": ["data_folder"], "pp_to_next": 70620 },
+        { "level": 7, "title": "Scientist", "base_pay_per_hour": 22, "requires": ["basic_lab_kit"], "grants": ["proper_lab_coat"], "pp_to_next": 134180 },
+        { "level": 8, "title": "Senior Scientist", "base_pay_per_hour": 30, "requires": ["basic_lab_kit"], "grants": ["equipment_voucher"], "pp_to_next": 241520 },
+        { "level": 9, "title": "Research Lead", "base_pay_per_hour": 40, "requires": ["basic_lab_kit"], "grants": ["clipboard_of_authority"], "pp_to_next": 410590 },
+        { "level": 10, "title": "Principal Scientist", "base_pay_per_hour": 55, "requires": ["basic_lab_kit"], "grants": ["fancy_pen"], "pp_to_next": null }
+      ]
+    },
+    "Engineer": {
+      "display_name": "Engineer",
+      "category": "Innovation",
+      "description": "Design, build, and fix things that matter",
+      "starting_items": [],
+      "positions": [
+        { "level": 1, "title": "Tape-and-Hope Builder", "base_pay_per_hour": 4, "requires": [], "grants": ["duct_tape_basic"], "pp_to_next": 780 },
+        { "level": 2, "title": "Parts Sorter", "base_pay_per_hour": 5, "requires": [], "grants": ["screw_pack"], "pp_to_next": 1720 },
+        { "level": 3, "title": "Blueprint Doodler", "base_pay_per_hour": 6, "requires": ["notebook"], "grants": ["ruler_basic"], "pp_to_next": 5500 },
+        { "level": 4, "title": "Junior Engineer", "base_pay_per_hour": 12, "requires": ["tool_kit_basic"], "grants": ["tool_kit_basic"], "pp_to_next": 13750 },
+        { "level": 5, "title": "Design Engineer", "base_pay_per_hour": 16, "requires": ["tool_kit_basic"], "grants": ["measuring_tape"], "pp_to_next": 30250 },
+        { "level": 6, "title": "Systems Engineer", "base_pay_per_hour": 20, "requires": ["tool_kit_basic"], "grants": ["multimeter"], "pp_to_next": 63530 },
+        { "level": 7, "title": "Project Engineer", "base_pay_per_hour": 24, "requires": ["tool_kit_basic"], "grants": ["safety_helmet"], "pp_to_next": 127060 },
+        { "level": 8, "title": "Senior Engineer", "base_pay_per_hour": 34, "requires": ["tool_kit_basic", "multimeter"], "grants": ["power_drill"], "pp_to_next": 228700 },
+        { "level": 9, "title": "Lead Engineer", "base_pay_per_hour": 45, "requires": ["tool_kit_basic"], "grants": ["walkie_talkie"], "pp_to_next": 388790 },
+        { "level": 10, "title": "Chief Engineer", "base_pay_per_hour": 58, "requires": ["tool_kit_basic", "power_drill"], "grants": ["golden_wrench"], "pp_to_next": null }
+      ]
+    },
+    "Author": {
+      "display_name": "Author",
+      "category": "Art",
+      "description": "Write stories and build worlds with words",
+      "starting_items": ["notebook"],
+      "can_create_releases": true,
+      "release_type": "Book",
+      "positions": [
+        { "level": 1, "title": "Idea Hoarder", "base_pay_per_hour": 2, "requires": ["notebook"], "grants": ["pencil_basic"], "pp_to_next": 480 },
+        { "level": 2, "title": "Prompt Writer", "base_pay_per_hour": 3, "requires": ["notebook"], "grants": ["coffee_coupon"], "pp_to_next": 1200 },
+        { "level": 3, "title": "Draft Sprinter", "base_pay_per_hour": 4, "requires": ["notebook"], "grants": ["pen_that_works_sometimes"], "pp_to_next": 3840 },
+        { "level": 4, "title": "Copywriter", "base_pay_per_hour": 6, "requires": ["notebook"], "grants": ["laptop_basic"], "pp_to_next": 10750 },
+        { "level": 5, "title": "Content Writer", "base_pay_per_hour": 7, "requires": ["laptop_basic"], "grants": ["desk_lamp"], "pp_to_next": 25800 },
+        { "level": 6, "title": "Freelance Author", "base_pay_per_hour": 9, "requires": ["laptop_basic"], "grants": ["basic_desk"], "pp_to_next": 56760 },
+        { "level": 7, "title": "Published Author", "base_pay_per_hour": 12, "requires": ["laptop_basic"], "grants": ["better_chair_voucher"], "pp_to_next": 113520 },
+        { "level": 8, "title": "Best-Selling Author", "base_pay_per_hour": 16, "requires": ["laptop_basic"], "grants": ["editor_contact"], "pp_to_next": 215690 },
+        { "level": 9, "title": "Franchise Author", "base_pay_per_hour": 20, "requires": ["laptop_basic"], "grants": ["bookshelf"], "pp_to_next": 388240 },
+        { "level": 10, "title": "Legendary Author", "base_pay_per_hour": 24, "requires": ["laptop_basic"], "grants": ["fountain_pen_of_destiny"], "pp_to_next": null }
+      ]
+    },
+    "VisualArtist": {
+      "display_name": "Visual Artist",
+      "category": "Art",
+      "description": "Create visual masterpieces and find your style",
+      "starting_items": ["pencil_basic"],
+      "can_create_releases": true,
+      "release_type": "Art Collection",
+      "positions": [
+        { "level": 1, "title": "Doodle Miner", "base_pay_per_hour": 2, "requires": ["pencil_basic"], "grants": ["sketchbook"], "pp_to_next": 520 },
+        { "level": 2, "title": "Sketch Grinder", "base_pay_per_hour": 3, "requires": ["sketchbook"], "grants": ["eraser"], "pp_to_next": 1300 },
+        { "level": 3, "title": "Color Dabbler", "base_pay_per_hour": 4, "requires": ["basic_colors"], "grants": ["brush_that_sheds"], "pp_to_next": 4290 },
+        { "level": 4, "title": "Junior Illustrator", "base_pay_per_hour": 6, "requires": ["basic_art_supplies_kit"], "grants": ["basic_art_supplies_kit"], "pp_to_next": 11570 },
+        { "level": 5, "title": "Commission Artist", "base_pay_per_hour": 8, "requires": ["basic_art_supplies_kit"], "grants": ["better_brushes"], "pp_to_next": 27770 },
+        { "level": 6, "title": "Professional Illustrator", "base_pay_per_hour": 10, "requires": ["drawing_tablet_basic"], "grants": ["drawing_tablet_basic"], "pp_to_next": 61090 },
+        { "level": 7, "title": "Concept Artist", "base_pay_per_hour": 12, "requires": ["drawing_tablet_basic"], "grants": ["reference_book"], "pp_to_next": 122180 },
+        { "level": 8, "title": "Senior Artist", "base_pay_per_hour": 16, "requires": ["drawing_tablet_basic"], "grants": ["pro_tablet_voucher"], "pp_to_next": 232140 },
+        { "level": 9, "title": "Art Director", "base_pay_per_hour": 22, "requires": ["drawing_tablet_basic"], "grants": ["gallery_card"], "pp_to_next": 417850 },
+        { "level": 10, "title": "Master Artist", "base_pay_per_hour": 26, "requires": ["drawing_tablet_basic"], "grants": ["signature_stamp"], "pp_to_next": null }
+      ]
+    },
+    "Musician": {
+      "display_name": "Musician",
+      "category": "Art",
+      "description": "Make music and share your sound with the world",
+      "starting_items": [],
+      "can_create_releases": true,
+      "release_type": "Album",
+      "positions": [
+        { "level": 1, "title": "Hum Recorder", "base_pay_per_hour": 2, "requires": [], "grants": ["voice_memo_app"], "pp_to_next": 600 },
+        { "level": 2, "title": "Beat Tapper", "base_pay_per_hour": 3, "requires": [], "grants": ["metronome_app"], "pp_to_next": 1440 },
+        { "level": 3, "title": "Chord Collector", "base_pay_per_hour": 4, "requires": [], "grants": ["three_string_guitar"], "pp_to_next": 4610 },
+        { "level": 4, "title": "Session Musician", "base_pay_per_hour": 6, "requires": ["budget_microphone"], "grants": ["budget_microphone"], "pp_to_next": 12450 },
+        { "level": 5, "title": "Recording Artist", "base_pay_per_hour": 7, "requires": ["budget_microphone", "headphones_basic"], "grants": ["headphones_basic"], "pp_to_next": 29880 },
+        { "level": 6, "title": "Gig Performer", "base_pay_per_hour": 9, "requires": ["budget_microphone"], "grants": ["gig_bag"], "pp_to_next": 65740 },
+        { "level": 7, "title": "Producer / Composer", "base_pay_per_hour": 12, "requires": ["budget_microphone", "audio_interface"], "grants": ["audio_interface"], "pp_to_next": 131480 },
+        { "level": 8, "title": "Touring Musician", "base_pay_per_hour": 16, "requires": ["audio_interface"], "grants": ["better_mic_voucher"], "pp_to_next": 249810 },
+        { "level": 9, "title": "Headline Performer", "base_pay_per_hour": 20, "requires": ["audio_interface"], "grants": ["tour_jacket"], "pp_to_next": 449660 },
+        { "level": 10, "title": "Music Icon", "base_pay_per_hour": 25, "requires": ["audio_interface"], "grants": ["golden_mic"], "pp_to_next": null }
+      ]
+    }
+  },
+
+  "progression_settings": {
+    "max_level": 10,
+    "promotion_check_timing": "end_of_day",
+    "pp_reset_on_promotion": true,
+    "demotion": {
+      "risk_threshold": 8,
+      "pp_loss_per_risk_day": 50,
+      "demote_pp_threshold": -100
+    }
+  },
+
+  "salary_modifiers": {
+    "description": "How EP affects actual earnings",
+    "formula": "hourly_wage = base_pay × (EP / 10)",
+    "ep_divisor": 10
+  }
+}
+

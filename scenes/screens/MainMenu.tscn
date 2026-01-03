@@ -1,0 +1,315 @@
+[gd_scene load_steps=4 format=3 uid="uid://c7yd1n3v5q2gh"]
+
+[ext_resource type="Script" path="res://scripts/ui/MainMenu.gd" id="1_menu"]
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_cat"]
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_branch"]
+
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+script = ExtResource("1_menu")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+color = Color(0.08, 0.08, 0.1, 0.85)
+
+[node name="CloseBtn" type="Button" parent="."]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 0
+offset_left = 12.0
+offset_top = 12.0
+offset_right = 44.0
+offset_bottom = 44.0
+focus_mode = 0
+mouse_default_cursor_shape = 2
+theme_override_colors/font_color = Color(0.9, 0.9, 0.9, 1)
+theme_override_colors/font_hover_color = Color(1, 0.4, 0.4, 1)
+theme_override_colors/font_pressed_color = Color(1, 0.2, 0.2, 1)
+theme_override_font_sizes/font_size = 20
+flat = true
+text = "✕"
+
+[node name="MoveBtn" type="Button" parent="."]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -44.0
+offset_top = 12.0
+offset_right = -12.0
+offset_bottom = 44.0
+grow_horizontal = 0
+focus_mode = 0
+mouse_default_cursor_shape = 9
+theme_override_colors/font_color = Color(0.9, 0.9, 0.9, 1)
+theme_override_colors/font_hover_color = Color(0.7, 0.85, 1, 1)
+theme_override_font_sizes/font_size = 18
+flat = true
+text = "✥"
+
+[node name="VBox" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -160.0
+offset_top = -140.0
+offset_right = 160.0
+offset_bottom = 140.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 0
+
+[node name="TitleSpacer" type="Control" parent="VBox"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+
+[node name="Title" type="Label" parent="VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.95, 0.95, 0.95, 1)
+theme_override_font_sizes/font_size = 36
+text = "TITLE"
+horizontal_alignment = 1
+
+[node name="Spacer" type="Control" parent="VBox"]
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+
+[node name="NewGameBtn" type="Button" parent="VBox"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+focus_mode = 0
+mouse_default_cursor_shape = 2
+theme_override_colors/font_color = Color(0.85, 0.85, 0.85, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(0.7, 0.7, 0.7, 1)
+theme_override_font_sizes/font_size = 22
+flat = true
+text = "NEW GAME"
+
+[node name="ContinueBtn" type="Button" parent="VBox"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+focus_mode = 0
+mouse_default_cursor_shape = 2
+theme_override_colors/font_color = Color(0.85, 0.85, 0.85, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(0.7, 0.7, 0.7, 1)
+theme_override_font_sizes/font_size = 22
+flat = true
+text = "CONTINUE"
+
+[node name="SettingsBtn" type="Button" parent="VBox"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+focus_mode = 0
+mouse_default_cursor_shape = 2
+theme_override_colors/font_color = Color(0.85, 0.85, 0.85, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(0.7, 0.7, 0.7, 1)
+theme_override_font_sizes/font_size = 22
+flat = true
+text = "SETTINGS"
+
+[node name="NewGamePanel" type="Panel" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -200.0
+offset_top = -150.0
+offset_right = 200.0
+offset_bottom = 150.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="BG" type="ColorRect" parent="NewGamePanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.1, 0.1, 0.12, 0.98)
+
+[node name="VBox" type="VBoxContainer" parent="NewGamePanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="Title" type="Label" parent="NewGamePanel/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.95, 0.95, 0.95, 1)
+theme_override_font_sizes/font_size = 18
+text = "CREATE CHARACTER"
+horizontal_alignment = 1
+
+[node name="NameContainer" type="HBoxContainer" parent="NewGamePanel/VBox"]
+layout_mode = 2
+alignment = 1
+
+[node name="NameLabel" type="Label" parent="NewGamePanel/VBox/NameContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.8, 0.8, 0.8, 1)
+text = "Name:"
+
+[node name="NameInput" type="LineEdit" parent="NewGamePanel/VBox/NameContainer"]
+custom_minimum_size = Vector2(180, 0)
+layout_mode = 2
+placeholder_text = "Enter name..."
+max_length = 20
+
+[node name="CategoryLabel" type="Label" parent="NewGamePanel/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.8, 0.8, 0.8, 1)
+text = "Category:"
+horizontal_alignment = 1
+
+[node name="CategoryContainer" type="HBoxContainer" parent="NewGamePanel/VBox"]
+layout_mode = 2
+alignment = 1
+
+[node name="BusinessBtn" type="Button" parent="NewGamePanel/VBox/CategoryContainer"]
+custom_minimum_size = Vector2(100, 30)
+layout_mode = 2
+toggle_mode = true
+button_group = SubResource("ButtonGroup_cat")
+text = "Business"
+
+[node name="ArtBtn" type="Button" parent="NewGamePanel/VBox/CategoryContainer"]
+custom_minimum_size = Vector2(100, 30)
+layout_mode = 2
+toggle_mode = true
+button_group = SubResource("ButtonGroup_cat")
+text = "Art"
+
+[node name="InnovationBtn" type="Button" parent="NewGamePanel/VBox/CategoryContainer"]
+custom_minimum_size = Vector2(100, 30)
+layout_mode = 2
+toggle_mode = true
+button_group = SubResource("ButtonGroup_cat")
+text = "Innovation"
+
+[node name="BranchLabel" type="Label" parent="NewGamePanel/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.8, 0.8, 0.8, 1)
+text = "Branch:"
+horizontal_alignment = 1
+
+[node name="BranchContainer" type="HBoxContainer" parent="NewGamePanel/VBox"]
+layout_mode = 2
+alignment = 1
+
+[node name="Branch1Btn" type="Button" parent="NewGamePanel/VBox/BranchContainer"]
+custom_minimum_size = Vector2(100, 30)
+layout_mode = 2
+toggle_mode = true
+button_group = SubResource("ButtonGroup_branch")
+text = "Branch 1"
+
+[node name="Branch2Btn" type="Button" parent="NewGamePanel/VBox/BranchContainer"]
+custom_minimum_size = Vector2(100, 30)
+layout_mode = 2
+toggle_mode = true
+button_group = SubResource("ButtonGroup_branch")
+text = "Branch 2"
+
+[node name="Branch3Btn" type="Button" parent="NewGamePanel/VBox/BranchContainer"]
+custom_minimum_size = Vector2(100, 30)
+layout_mode = 2
+toggle_mode = true
+button_group = SubResource("ButtonGroup_branch")
+text = "Branch 3"
+
+[node name="ButtonContainer" type="HBoxContainer" parent="NewGamePanel/VBox"]
+layout_mode = 2
+alignment = 1
+
+[node name="CancelBtn" type="Button" parent="NewGamePanel/VBox/ButtonContainer"]
+custom_minimum_size = Vector2(100, 35)
+layout_mode = 2
+text = "Cancel"
+
+[node name="StartBtn" type="Button" parent="NewGamePanel/VBox/ButtonContainer"]
+custom_minimum_size = Vector2(100, 35)
+layout_mode = 2
+text = "Start"
+
+[node name="SlotPanel" type="Panel" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -200.0
+offset_top = -180.0
+offset_right = 200.0
+offset_bottom = 180.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="BG" type="ColorRect" parent="SlotPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.1, 0.1, 0.12, 0.98)
+
+[node name="VBox" type="VBoxContainer" parent="SlotPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 6
+
+[node name="Title" type="Label" parent="SlotPanel/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.95, 0.95, 0.95, 1)
+theme_override_font_sizes/font_size = 16
+text = "SELECT SAVE SLOT"
+horizontal_alignment = 1
+
+[node name="SlotContainer" type="VBoxContainer" parent="SlotPanel/VBox"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="CloseBtn" type="Button" parent="SlotPanel/VBox"]
+custom_minimum_size = Vector2(100, 30)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Close"
+
+[node name="HoverFadeTimer" type="Timer" parent="."]
+wait_time = 0.8
+one_shot = true

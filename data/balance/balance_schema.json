@@ -1,0 +1,891 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://example.local/live-laugh-level-up/balance.schema.json",
+  "title": "Live, Laugh, Level Up - Balance JSON Schema (Version 1)",
+  "type": "object",
+  "description": "This schema file contains reusable definitions for all balance/config JSON files used by the game. Each individual JSON file can validate against the matching definition using $ref.",
+  "definitions": {
+    "EffectNumber": {
+      "type": "number",
+      "description": "A numeric effect. Can be negative."
+    },
+    "StatEffects": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "comfort": {
+          "$ref": "#/definitions/EffectNumber"
+        },
+        "productivity": {
+          "$ref": "#/definitions/EffectNumber"
+        },
+        "reputation": {
+          "$ref": "#/definitions/EffectNumber"
+        },
+        "stability": {
+          "$ref": "#/definitions/EffectNumber"
+        },
+        "hunger": {
+          "$ref": "#/definitions/EffectNumber"
+        },
+        "rest": {
+          "$ref": "#/definitions/EffectNumber"
+        },
+        "mood": {
+          "$ref": "#/definitions/EffectNumber"
+        },
+        "storage": {
+          "$ref": "#/definitions/EffectNumber"
+        }
+      }
+    },
+    "ItemRef": {
+      "type": "string",
+      "pattern": "^[a-z0-9_]+$",
+      "description": "Item ID reference (snake_case)."
+    },
+    "BranchId": {
+      "type": "string",
+      "enum": [
+        "Corporate",
+        "Merchant",
+        "Investor",
+        "Coder",
+        "Scientist",
+        "Engineer",
+        "Author",
+        "VisualArtist",
+        "Musician"
+      ]
+    },
+    "StoreId": {
+      "type": "string",
+      "enum": [
+        "Grocery",
+        "Mall"
+      ]
+    },
+    "Position": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "level",
+        "title",
+        "base_pay_per_hour"
+      ],
+      "properties": {
+        "level": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 10
+        },
+        "title": {
+          "type": "string"
+        },
+        "base_pay_per_hour": {
+          "type": "number",
+          "minimum": 0
+        },
+        "requires": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ItemRef"
+          },
+          "default": []
+        },
+        "grants": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ItemRef"
+          },
+          "default": []
+        },
+        "missing_requirement_policy": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "mode": {
+              "type": "string",
+              "enum": [
+                "work_block",
+                "soft_penalty"
+              ]
+            },
+            "soft_penalty": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "ep_delta": {
+                  "type": "number"
+                },
+                "mood_delta": {
+                  "type": "number"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "PositionsFile": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "version",
+        "branches"
+      ],
+      "properties": {
+        "version": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "branches": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "Corporate": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Position"
+              },
+              "minItems": 10,
+              "maxItems": 10
+            },
+            "Merchant": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Position"
+              },
+              "minItems": 10,
+              "maxItems": 10
+            },
+            "Investor": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Position"
+              },
+              "minItems": 10,
+              "maxItems": 10
+            },
+            "Coder": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Position"
+              },
+              "minItems": 10,
+              "maxItems": 10
+            },
+            "Scientist": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Position"
+              },
+              "minItems": 10,
+              "maxItems": 10
+            },
+            "Engineer": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Position"
+              },
+              "minItems": 10,
+              "maxItems": 10
+            },
+            "Author": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Position"
+              },
+              "minItems": 10,
+              "maxItems": 10
+            },
+            "VisualArtist": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Position"
+              },
+              "minItems": 10,
+              "maxItems": 10
+            },
+            "Musician": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Position"
+              },
+              "minItems": 10,
+              "maxItems": 10
+            }
+          }
+        }
+      }
+    },
+    "PromotionRequirementsFile": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "version",
+        "requirements"
+      ],
+      "properties": {
+        "version": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "requirements": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "Corporate": {
+              "type": "array",
+              "items": {
+                "type": "number",
+                "minimum": 0
+              },
+              "minItems": 10,
+              "maxItems": 10
+            },
+            "Merchant": {
+              "type": "array",
+              "items": {
+                "type": "number",
+                "minimum": 0
+              },
+              "minItems": 10,
+              "maxItems": 10
+            },
+            "Investor": {
+              "type": "array",
+              "items": {
+                "type": "number",
+                "minimum": 0
+              },
+              "minItems": 10,
+              "maxItems": 10
+            },
+            "Coder": {
+              "type": "array",
+              "items": {
+                "type": "number",
+                "minimum": 0
+              },
+              "minItems": 10,
+              "maxItems": 10
+            },
+            "Scientist": {
+              "type": "array",
+              "items": {
+                "type": "number",
+                "minimum": 0
+              },
+              "minItems": 10,
+              "maxItems": 10
+            },
+            "Engineer": {
+              "type": "array",
+              "items": {
+                "type": "number",
+                "minimum": 0
+              },
+              "minItems": 10,
+              "maxItems": 10
+            },
+            "Author": {
+              "type": "array",
+              "items": {
+                "type": "number",
+                "minimum": 0
+              },
+              "minItems": 10,
+              "maxItems": 10
+            },
+            "VisualArtist": {
+              "type": "array",
+              "items": {
+                "type": "number",
+                "minimum": 0
+              },
+              "minItems": 10,
+              "maxItems": 10
+            },
+            "Musician": {
+              "type": "array",
+              "items": {
+                "type": "number",
+                "minimum": 0
+              },
+              "minItems": 10,
+              "maxItems": 10
+            }
+          },
+          "description": "Arrays should be indexed by level; index 0 is a placeholder (0). Example: [0, 120, 300, ...]"
+        }
+      }
+    },
+    "LivingArrangement": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "tier",
+        "id",
+        "name",
+        "stats"
+      ],
+      "properties": {
+        "tier": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 25
+        },
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z0-9_]+$"
+        },
+        "name": {
+          "type": "string"
+        },
+        "stats": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "comfort",
+            "productivity",
+            "reputation",
+            "storage",
+            "stability"
+          ],
+          "properties": {
+            "comfort": {
+              "type": "number"
+            },
+            "productivity": {
+              "type": "number",
+              "minimum": 0
+            },
+            "reputation": {
+              "type": "number",
+              "minimum": 0
+            },
+            "storage": {
+              "type": "integer",
+              "minimum": 4,
+              "maximum": 40
+            },
+            "stability": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 10
+            }
+          }
+        }
+      }
+    },
+    "LivingArrangementsFile": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "version",
+        "arrangements"
+      ],
+      "properties": {
+        "version": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "arrangements": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/LivingArrangement"
+          },
+          "minItems": 25,
+          "maxItems": 25
+        }
+      }
+    },
+    "TravelTimesFile": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "version",
+        "travel_minutes"
+      ],
+      "properties": {
+        "version": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "travel_minutes": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "by_tier": {
+              "type": "object",
+              "patternProperties": {
+                "^(?:[1-9]|1[0-9]|2[0-5])$": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "Grocery",
+                    "Mall"
+                  ],
+                  "properties": {
+                    "Grocery": {
+                      "type": "integer",
+                      "minimum": 0
+                    },
+                    "Mall": {
+                      "type": "integer",
+                      "minimum": 0
+                    }
+                  }
+                }
+              },
+              "additionalProperties": false
+            }
+          }
+        }
+      }
+    },
+    "Item": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "name",
+        "store",
+        "price",
+        "effects"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/ItemRef"
+        },
+        "name": {
+          "type": "string"
+        },
+        "store": {
+          "$ref": "#/definitions/StoreId"
+        },
+        "price": {
+          "type": "number",
+          "minimum": 0
+        },
+        "stackable": {
+          "type": "boolean",
+          "default": false
+        },
+        "max_stack": {
+          "type": "integer",
+          "minimum": 1,
+          "default": 1
+        },
+        "effects": {
+          "$ref": "#/definitions/StatEffects"
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": []
+        },
+        "requirements": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "min_branch": {
+              "$ref": "#/definitions/BranchId"
+            },
+            "min_level": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 10
+            }
+          }
+        }
+      }
+    },
+    "ItemsFile": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "version",
+        "items"
+      ],
+      "properties": {
+        "version": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "items": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Item"
+          },
+          "minItems": 1
+        }
+      }
+    },
+    "NeedsRulesFile": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "version",
+        "ranges",
+        "mood_modifier",
+        "need_penalties"
+      ],
+      "properties": {
+        "version": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "ranges": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "hunger": {
+              "type": "object",
+              "required": [
+                "min",
+                "max"
+              ],
+              "properties": {
+                "min": {
+                  "type": "integer"
+                },
+                "max": {
+                  "type": "integer"
+                }
+              }
+            },
+            "rest": {
+              "type": "object",
+              "required": [
+                "min",
+                "max"
+              ],
+              "properties": {
+                "min": {
+                  "type": "integer"
+                },
+                "max": {
+                  "type": "integer"
+                }
+              }
+            },
+            "mood": {
+              "type": "object",
+              "required": [
+                "min",
+                "max"
+              ],
+              "properties": {
+                "min": {
+                  "type": "integer"
+                },
+                "max": {
+                  "type": "integer"
+                }
+              }
+            }
+          }
+        },
+        "mood_modifier": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "neutral",
+            "step",
+            "min",
+            "max"
+          ],
+          "properties": {
+            "neutral": {
+              "type": "integer"
+            },
+            "step": {
+              "type": "integer"
+            },
+            "min": {
+              "type": "integer"
+            },
+            "max": {
+              "type": "integer"
+            }
+          }
+        },
+        "need_penalties": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "hunger_thresholds",
+            "rest_thresholds"
+          ],
+          "properties": {
+            "hunger_thresholds": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "at_or_above",
+                  "penalty"
+                ],
+                "properties": {
+                  "at_or_above": {
+                    "type": "integer"
+                  },
+                  "penalty": {
+                    "type": "integer"
+                  }
+                }
+              }
+            },
+            "rest_thresholds": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "at_or_below",
+                  "penalty"
+                ],
+                "properties": {
+                  "at_or_below": {
+                    "type": "integer"
+                  },
+                  "penalty": {
+                    "type": "integer"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "TimeScaleFile": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "version",
+        "real_seconds_per_game_minute"
+      ],
+      "properties": {
+        "version": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "real_seconds_per_game_minute": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "notes": {
+          "type": "string"
+        }
+      }
+    },
+    "QuotesFile": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "version",
+        "display_seconds",
+        "quotes"
+      ],
+      "properties": {
+        "version": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "display_seconds": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "quotes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1
+        }
+      }
+    },
+    "CommentsFile": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "version",
+        "comments"
+      ],
+      "properties": {
+        "version": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "comments": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "id",
+              "text",
+              "category"
+            ],
+            "properties": {
+              "id": {
+                "type": "string",
+                "pattern": "^[a-z0-9_]+$"
+              },
+              "text": {
+                "type": "string"
+              },
+              "category": {
+                "type": "string",
+                "enum": [
+                  "general",
+                  "hungry",
+                  "tired",
+                  "mood_high",
+                  "mood_low",
+                  "corporate",
+                  "merchant",
+                  "investor",
+                  "coder",
+                  "scientist",
+                  "engineer",
+                  "author",
+                  "visual_artist",
+                  "musician"
+                ]
+              },
+              "weight": {
+                "type": "number",
+                "minimum": 0,
+                "default": 1
+              },
+              "min_branch": {
+                "$ref": "#/definitions/BranchId"
+              },
+              "max_branch": {
+                "$ref": "#/definitions/BranchId"
+              }
+            }
+          },
+          "minItems": 1
+        }
+      }
+    },
+    "ConsoleSettingsFile": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "version",
+        "max_lines",
+        "categories"
+      ],
+      "properties": {
+        "version": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "max_lines": {
+          "type": "integer",
+          "minimum": 50,
+          "maximum": 5000
+        },
+        "categories": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "SYSTEM",
+              "INPUT",
+              "STATS",
+              "WORK",
+              "TRAVEL",
+              "STORE",
+              "ITEM",
+              "QUOTE",
+              "COMMENT",
+              "PROMOTION",
+              "DEMOTION",
+              "ROYALTY"
+            ]
+          },
+          "minItems": 1
+        },
+        "dev_mode_default": {
+          "type": "boolean",
+          "default": false
+        }
+      }
+    },
+    "ConsoleLogEntry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "ts_game",
+        "day",
+        "category",
+        "message"
+      ],
+      "properties": {
+        "ts_game": {
+          "type": "string",
+          "description": "In-game time label, e.g. '06:10'"
+        },
+        "day": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "category": {
+          "type": "string",
+          "enum": [
+            "SYSTEM",
+            "INPUT",
+            "STATS",
+            "WORK",
+            "TRAVEL",
+            "STORE",
+            "ITEM",
+            "QUOTE",
+            "COMMENT",
+            "PROMOTION",
+            "DEMOTION",
+            "ROYALTY"
+          ]
+        },
+        "message": {
+          "type": "string"
+        },
+        "data": {
+          "type": "object",
+          "description": "Optional structured data for debugging/logging.",
+          "additionalProperties": true
+        }
+      }
+    },
+    "ConsoleLogFile": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "version",
+        "entries"
+      ],
+      "properties": {
+        "version": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "entries": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ConsoleLogEntry"
+          }
+        }
+      }
+    }
+  }
+}

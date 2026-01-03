@@ -1,0 +1,24 @@
+[gd_resource type="Theme" format=3 uid="uid://dpwk8vy1k4qmo"]
+
+[resource]
+default_font_size = 14
+
+Button/colors/font_color = Color(0.95, 0.92, 0.85, 1)
+Button/colors/font_hover_color = Color(1, 0.98, 0.9, 1)
+Button/colors/font_pressed_color = Color(0.8, 0.75, 0.65, 1)
+Button/font_sizes/font_size = 16
+
+Label/colors/font_color = Color(0.95, 0.92, 0.85, 1)
+Label/font_sizes/font_size = 14
+
+LineEdit/colors/font_color = Color(0.2, 0.18, 0.15, 1)
+LineEdit/colors/caret_color = Color(0.4, 0.35, 0.3, 1)
+LineEdit/font_sizes/font_size = 14
+
+RichTextLabel/colors/default_color = Color(0.95, 0.92, 0.85, 1)
+RichTextLabel/font_sizes/normal_font_size = 14
+
+ProgressBar/font_sizes/font_size = 12
+
+Panel/styles/panel = null
+

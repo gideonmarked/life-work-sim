@@ -1,0 +1,37 @@
+{
+  "version": 1,
+  "description": "Probability and chance values for game events (values are percentages 0-100 or ratios)",
+  
+  "needs": {
+    "hunger_increase_chance": 33,
+    "rest_decrease_chance": 20,
+    "mood_decrease_from_needs_chance": 10,
+    "comment_after_travel_chance": 25,
+    "comment_after_purchase_chance": 20,
+    "comment_after_promotion_chance": 50,
+    "random_comment_chance": 5
+  },
+  
+  "work": {
+    "missing_items_log_chance": 10
+  },
+  
+  "sleep": {
+    "rest_recovery_chance": 50,
+    "hunger_while_sleeping_chance": 10
+  },
+  
+  "character_remarks": {
+    "random_remark_chance": 3,
+    "remark_after_work_chance": 8,
+    "remark_after_eating_chance": 15,
+    "remark_when_tired_chance": 10,
+    "remark_when_hungry_chance": 10,
+    "remark_on_new_day_chance": 40
+  },
+  
+  "mystery_soup": {
+    "outcome_weights": [20, 25, 15, 25, 15]
+  }
+}
+

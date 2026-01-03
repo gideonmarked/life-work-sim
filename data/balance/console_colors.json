@@ -1,0 +1,37 @@
+{
+  "version": 1,
+  "description": "Console log colors by category. Colors are hex format (#RRGGBB)",
+  
+  "category_colors": {
+    "SYSTEM": "#6a6a7a",
+    "INPUT": "#7aa3ff",
+    "STATS": "#4dd4a0",
+    "WORK": "#f5a623",
+    "TRAVEL": "#5eb3f7",
+    "STORE": "#e8875a",
+    "ITEM": "#c9a86c",
+    "QUOTE": "#f7e67a",
+    "COMMENT": "#b794f6",
+    "PROMOTION": "#50fa7b",
+    "DEMOTION": "#ff5555",
+    "ROYALTY": "#ffb86c",
+    "WARNING": "#ffcc00"
+  },
+  
+  "special_colors": {
+    "timestamp": "#666666",
+    "default": "#b0b0b0",
+    "warning": "#ffcc00",
+    "critical": "#ff4444",
+    "success": "#44ff44"
+  },
+  
+  "formatting": {
+    "show_day": true,
+    "show_time": true,
+    "show_category_tag": true,
+    "timestamp_format": "[Day {day} {time}]",
+    "category_format": "[{category}]"
+  }
+}
+

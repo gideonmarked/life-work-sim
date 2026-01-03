@@ -1,0 +1,680 @@
+{
+  "version": 1,
+  "description": "Witty work task names for each position. Random task selected when work action starts.",
+  
+  "pp_settings": {
+    "base_pp_per_work": 12,
+    "productivity_multiplier": 0.5,
+    "reputation_bonus": 0.1,
+    "stability_bonus": 0.1,
+    "notes": "PP = base * (1 + prod*mult) * (1 + rep*bonus) * (1 + stab*bonus). ~15-30 PP per 1hr work depending on stats."
+  },
+
+  "tasks": {
+    "Corporate": {
+      "Coffee Courier": [
+        "Dodging Spills in the Elevator",
+        "Memorizing Everyone's Cream Preference",
+        "Speed-Walking with Hot Liquids",
+        "Pretending the Decaf is Regular",
+        "Finding the One Working Microwave"
+      ],
+      "Meeting Note Ninja": [
+        "Deciphering Terrible Handwriting",
+        "Nodding Like You Understand",
+        "Typing at the Speed of Rambling",
+        "Making 'Synergy' Sound Interesting",
+        "Surviving Death by PowerPoint"
+      ],
+      "Email Polisher": [
+        "Adding 'Per My Last Email' Passively",
+        "Counting How Many People to CC",
+        "Crafting the Perfect 'Hope This Finds You Well'",
+        "Deleting and Rewriting 47 Times",
+        "Wondering If Three Exclamation Marks Is Too Many!!!"
+      ],
+      "Administrative Assistant": [
+        "Scheduling Meetings About Meetings",
+        "Translating Boss Speak to English",
+        "Reorganizing the Filing Cabinet... Again",
+        "Pretending the Printer Isn't Jammed",
+        "Calendar Tetris Championship"
+      ],
+      "Operations Coordinator": [
+        "Herding Cats Professionally",
+        "Tracking Sixteen Moving Parts",
+        "Making Sense of the Spreadsheet Monster",
+        "Coordinating the Un-coordinatable",
+        "Explaining the Process... Again"
+      ],
+      "Business Analyst": [
+        "Turning Numbers into Pretty Charts",
+        "Finding Insights in the Data Chaos",
+        "Presenting Bad News Optimistically",
+        "Recommending What They Already Decided",
+        "Analyzing the Analysis of the Analysis"
+      ],
+      "Project Manager": [
+        "Moving Boxes on a Gantt Chart",
+        "Saying 'Let's Circle Back' Unironically",
+        "Managing Stakeholder Expectations (Down)",
+        "Updating the Status of the Status Update",
+        "Celebrating Being Only 2 Weeks Behind"
+      ],
+      "Department Manager": [
+        "Approving Things You Don't Understand",
+        "Taking Credit Strategically",
+        "Delegating the Delegation",
+        "Having a Meeting About the Budget Meeting",
+        "Practicing Your Concerned Face"
+      ],
+      "Director": [
+        "Strategizing the Strategy Strategically",
+        "Aligning the Alignment",
+        "Visioning the Vision",
+        "Networking at Expensive Lunches",
+        "Saying 'I'll Take It Under Advisement'"
+      ],
+      "Executive": [
+        "Golf Meeting (It's Work, Trust Me)",
+        "Signing Things Without Reading",
+        "Helicopter Decision Making",
+        "Contemplating Your Corner Office View",
+        "Practicing Your Keynote Speech Poses"
+      ]
+    },
+
+    "Merchant": {
+      "Street Vendor": [
+        "Shouting Prices at Passersby",
+        "Guarding Your Spot from Interlopers",
+        "Making Change with Mental Math",
+        "Pretending the Fruit Is Fresh",
+        "Dodging the Health Inspector"
+      ],
+      "Deal Hunter": [
+        "Haggling Over 50 Cents",
+        "Spotting a Sucker from Across the Market",
+        "Convincing Yourself It's Vintage Not Old",
+        "The Art of the Counter-Offer",
+        "Calculating Profit Margins in Your Head"
+      ],
+      "Sticker Price Expert": [
+        "Making Up Numbers That Sound Right",
+        "Psychological Pricing ($9.99 Magic)",
+        "Retagging 'Sales' Items",
+        "Defending Your Markup Decisions",
+        "Price Tag Calligraphy Practice"
+      ],
+      "Shopkeeper": [
+        "Rearranging Shelves for the 5th Time Today",
+        "Pretending You Have It In the Back",
+        "Watching for Shoplifters (Suspiciously)",
+        "Small Talk Olympics with Regulars",
+        "The 'We're Closing in 5 Minutes' Stare"
+      ],
+      "Online Seller": [
+        "Writing Product Descriptions Like Poetry",
+        "Photographing Junk Like It's Art",
+        "Refreshing the Listings Page Constantly",
+        "Responding to Lowballers Politely",
+        "Calculating Shipping That Won't Lose Money"
+      ],
+      "Inventory Manager": [
+        "Counting Things That Don't Want to Be Counted",
+        "Finding the Missing Box #47",
+        "Spreadsheet Sorcery",
+        "Explaining Shrinkage to the Boss",
+        "Organizing Chaos Into Slightly Less Chaos"
+      ],
+      "Store Manager": [
+        "Putting Out Fires (Metaphorical Ones)",
+        "Scheduling Around Everyone's 'Availability'",
+        "Customer Complaint Diplomacy",
+        "Pretending Corporate's Ideas Are Good",
+        "The Budget Dance of Desperation"
+      ],
+      "Business Owner": [
+        "Wearing All the Hats (Literally and Figuratively)",
+        "Signing Checks with Trembling Hands",
+        "Dreaming of Expansion While Panicking",
+        "Networking at Chamber of Commerce",
+        "Explaining Your 'Unique Value Proposition'"
+      ],
+      "Wholesale Supplier": [
+        "Bulk Order Negotiations",
+        "Container Tetris in the Warehouse",
+        "Tracking 47 Shipments Simultaneously",
+        "Supplier Relationship 'Management'",
+        "Volume Discount Mathematics"
+      ],
+      "Merchant Tycoon": [
+        "Market Manipulation (Legal Kind)",
+        "Acquiring Competitors for Breakfast",
+        "Mansion Shopping During Lunch",
+        "Quarterly Earnings Victory Lap",
+        "Counting Money Like in the Movies"
+      ]
+    },
+
+    "Investor": {
+      "Pocket Change Player": [
+        "Reading r/wallstreetbets for 'Research'",
+        "Checking Stock App Every 30 Seconds",
+        "Panic Selling at Minor Dips",
+        "Calling Yourself a 'Retail Investor'",
+        "Pretending You Understand Crypto"
+      ],
+      "Market Watcher": [
+        "Staring at Green and Red Numbers",
+        "Refreshing Financial News Obsessively",
+        "Drawing Lines on Charts",
+        "Convincing Yourself It's Not Gambling",
+        "Following 'Expert' Tips from Twitter"
+      ],
+      "Portfolio Juggler": [
+        "Diversifying Your Diversification",
+        "Rebalancing Based on Feelings",
+        "Explaining Losses as 'Learning Experiences'",
+        "FOMO-Buying at the Top",
+        "Diamond Hands Practice Session"
+      ],
+      "Asset Manager": [
+        "Managing Assets (Mostly Spreadsheets)",
+        "Client Hand-Holding",
+        "Explaining Market Volatility... Again",
+        "Justifying Your Fees Creatively",
+        "Quarterly Report Spin Doctoring"
+      ],
+      "Fund Operator": [
+        "Playing with Other People's Money",
+        "Legal Document Review (Skimming)",
+        "Compliance Theater",
+        "Investor Call Performance Art",
+        "Risk Assessment Roulette"
+      ],
+      "Capital Controller": [
+        "Moving Large Numbers Between Boxes",
+        "Due Diligence Deep Dives",
+        "Board Meeting Survival",
+        "Strategic Capital Allocation (Guessing)",
+        "Networking at Fancy Galas"
+      ],
+      "Venture Partner": [
+        "Pitch Deck Poker Face Practice",
+        "Saying 'Interesting' Without Meaning It",
+        "Startup Due Diligence Speed Runs",
+        "Term Sheet Negotiation Warfare",
+        "Portfolio Company 'Mentoring'"
+      ],
+      "Private Equity Lead": [
+        "Leveraged Buyout Scheming",
+        "Value Creation (Cost Cutting)",
+        "Exit Strategy Daydreaming",
+        "Multiple Expansion Magic",
+        "Golf with Limited Partners"
+      ],
+      "Hedge Fund Manager": [
+        "Alpha Generation (or Claiming To)",
+        "Short Selling with Conviction",
+        "2 and 20 Calculations",
+        "Market Timing Attempts",
+        "Explaining Underperformance Eloquently"
+      ],
+      "Wealth Titan": [
+        "Family Office Management",
+        "Philanthropy for Tax Purposes",
+        "Island Shopping",
+        "Dynasty Planning",
+        "Reviewing Your Portrait Options"
+      ]
+    },
+
+    "Author": {
+      "Diary Scribbler": [
+        "Writing 'Dear Diary' Unironically",
+        "Describing Your Breakfast Poetically",
+        "Emotional Processing via Ink",
+        "Rereading Old Entries with Cringe",
+        "Doodling in the Margins"
+      ],
+      "Forum Poster": [
+        "Crafting the Perfect Hot Take",
+        "Arguing with Strangers Eloquently",
+        "Thread Necromancy",
+        "Earning Internet Points",
+        "Wiki Editing Wars"
+      ],
+      "Blogger": [
+        "Writing Clickbait Headlines",
+        "SEO Keyword Stuffing Artistry",
+        "Responding to 0 Comments",
+        "Refreshing Analytics Sadly",
+        "Affiliate Link Placement Strategy"
+      ],
+      "Freelance Writer": [
+        "Pitching to Magazines That Don't Reply",
+        "Writing About Things You Don't Care About",
+        "Invoice Chasing",
+        "Pretending Deadlines Are Suggestions",
+        "Coffee Shop Writer Aesthetic Maintenance"
+      ],
+      "Content Creator": [
+        "Thumbnailing Your Existence",
+        "Scripting Spontaneity",
+        "Engagement Metric Obsession",
+        "Brand Deal Email Drafting",
+        "Algorithm Appeasement Rituals"
+      ],
+      "Published Author": [
+        "Staring at Blank Pages Professionally",
+        "Deleting More Than You Write",
+        "Talking to Characters in Your Head",
+        "Deadline Panic Writing",
+        "Googling 'How Long Until Book Advance'"
+      ],
+      "Bestselling Author": [
+        "Book Signing Hand Cramps",
+        "Interview Answer Rehearsal",
+        "Avoiding Writing the Sequel",
+        "Fan Mail Appreciation (and Weird Ones)",
+        "Literary Festival Circuit Survival"
+      ],
+      "Literary Icon": [
+        "Cultivating Your Mystique",
+        "Dispensing Wisdom to Young Writers",
+        "Award Ceremony Humble Speeches",
+        "Masterclass Recording",
+        "Legacy Contemplation"
+      ],
+      "Pulitzer Contender": [
+        "Important Theme Wrestling",
+        "Editor Argument Championship",
+        "Research Deep Dives",
+        "Imposter Syndrome Management",
+        "Award Season Anxiety"
+      ],
+      "Literary Legend": [
+        "Existing as a Cultural Institution",
+        "Library Wing Dedication Attendance",
+        "Memoir Chapter 47 Revision",
+        "Refusing to Explain Your Work",
+        "Posthumous Reputation Planning"
+      ]
+    },
+
+    "VisualArtist": {
+      "Stick Figure Specialist": [
+        "Perfecting Circle Drawing (Failing)",
+        "MS Paint Masterpieces",
+        "Doodling During Meetings",
+        "Convincing Friends It's 'Abstract'",
+        "Adding More Lines to Make It Look Intentional"
+      ],
+      "Sketch Artist": [
+        "Filling Sketchbooks with Eyes",
+        "Hand Anatomy Frustration",
+        "Coffee Shop People Watching",
+        "Erasing More Than Drawing",
+        "Reference Photo Hoarding"
+      ],
+      "Digital Artist": [
+        "Layer Management Chaos",
+        "Ctrl+Z Addiction",
+        "Tablet Calibration Ritual",
+        "Brush Setting Hoarding",
+        "Commission Price Negotiation"
+      ],
+      "Freelance Illustrator": [
+        "Client Revision Round 47",
+        "'Can You Make It Pop More?'",
+        "Invoice Chasing",
+        "Portfolio Update Procrastination",
+        "Style Consistency Attempts"
+      ],
+      "Concept Designer": [
+        "Sketching Things That Don't Exist",
+        "Making Impossible Look Possible",
+        "Art Director Feedback Survival",
+        "Iteration Marathon",
+        "Reference Board Curation"
+      ],
+      "Established Artist": [
+        "Gallery Show Preparation Panic",
+        "Artist Statement Writing Torture",
+        "Networking at Openings",
+        "Commission Backlog Guilt",
+        "Social Media Content Machine"
+      ],
+      "Renowned Painter": [
+        "Brush Cleaning Meditation",
+        "Canvas Staring Championship",
+        "Color Mixing Alchemy",
+        "Studio Mess Organization (Never)",
+        "Explaining Your Vision to Collectors"
+      ],
+      "Gallery Featured": [
+        "Opening Night Small Talk",
+        "Price Tag Shock Observation",
+        "Critic Review Anxiety",
+        "Red Dot Counting",
+        "Free Wine Quality Assessment"
+      ],
+      "Art Director": [
+        "Approving with Cryptic Feedback",
+        "Team Creative Vision Alignment",
+        "Client Expectation Management",
+        "Budget Reality Checks",
+        "Style Guide Enforcement"
+      ],
+      "Legendary Visual Artist": [
+        "Museum Wing Existence",
+        "Documentary Interview Practice",
+        "Legacy Project Curation",
+        "Retrospective Exhibition Planning",
+        "Next Generation Inspiration"
+      ]
+    },
+
+    "Musician": {
+      "Shower Singer": [
+        "Acoustic Testing (Bathroom Edition)",
+        "Shampoo Bottle Microphone Technique",
+        "Neighbor Annoyance Optimization",
+        "High Note Attempts (Failing)",
+        "One-Person Harmony Attempts"
+      ],
+      "Karaoke Regular": [
+        "Song Selection Strategy",
+        "Liquid Courage Consumption",
+        "Holding the Mic Wrong Professionally",
+        "Crowd Engagement (Ignoring)",
+        "Forgetting Lyrics at Key Moments"
+      ],
+      "Street Performer": [
+        "Finding the Spot with Best Acoustics",
+        "Hat Placement Optimization",
+        "Playing Through Hecklers",
+        "Weather-Dependent Setlist",
+        "Coin Counting Between Songs"
+      ],
+      "Local Gig Player": [
+        "Load-In Tetris",
+        "Sound Check Negotiations",
+        "Playing to 5 People Enthusiastically",
+        "Merch Table Staffing",
+        "Gas Money Calculations"
+      ],
+      "Session Musician": [
+        "Sight-Reading Panic Mode",
+        "Producer Note Interpretation",
+        "Take 47 Energy Maintenance",
+        "Studio Etiquette Perfection",
+        "Clock Watching vs Creativity"
+      ],
+      "Recording Artist": [
+        "Studio Booth Isolation",
+        "Headphone Mix Arguments",
+        "Vocal Take Perfectionism",
+        "Producer Relationship Navigation",
+        "Album Concept Overthinking"
+      ],
+      "Touring Artist": [
+        "Bus Bunk Survival",
+        "Same Set Different City Energy",
+        "Merch Sales Tracking",
+        "Rider Request Optimization",
+        "Post-Show Meet and Greet Smiling"
+      ],
+      "Chart Topper": [
+        "Radio Interview Circuit",
+        "Music Video Concept Meetings",
+        "Award Show Outfit Selection",
+        "Feature Request Filtering",
+        "Streaming Number Obsession"
+      ],
+      "Music Producer": [
+        "Beat Making at 3 AM",
+        "Sample Clearance Anxiety",
+        "Mix Revision Hell",
+        "A&R Meeting Preparation",
+        "Sound Selection Paralysis"
+      ],
+      "Music Legend": [
+        "Greatest Hits Re-Recording",
+        "Biopic Accuracy Consultation",
+        "Hall of Fame Speech Writing",
+        "Legacy Artist Collaborations",
+        "Sunset Tour Planning"
+      ]
+    },
+
+    "Coder": {
+      "Tape-and-Hope Hacker": [
+        "Stack Overflow Copy-Pasting",
+        "Adding Semicolons Randomly",
+        "printf Debugging Marathon",
+        "Blaming the Compiler",
+        "Code That Works (Nobody Knows Why)"
+      ],
+      "Parts Sorter": [
+        "Function Naming Torture",
+        "Comment Writing (That Won't Age Well)",
+        "Refactoring the Refactor",
+        "Variable Name Overthinking",
+        "Indentation Wars"
+      ],
+      "Junior Developer": [
+        "PR Review Anxiety",
+        "Senior Dev Question Hesitation",
+        "Documentation Reading (Skimming)",
+        "First Production Bug Panic",
+        "Git Merge Conflict Terror"
+      ],
+      "Full-Stack Developer": [
+        "Frontend-Backend Blame Game",
+        "Framework Fatigue Management",
+        "Deploy Pipeline Babysitting",
+        "Technical Debt Accumulation",
+        "CORS Error Rage"
+      ],
+      "Senior Developer": [
+        "Code Review Red Pen Enthusiasm",
+        "Architecture Diagram Artistry",
+        "Meeting Avoidance Tactics",
+        "Legacy Code Archaeology",
+        "Junior Dev Mentoring (Patience Testing)"
+      ],
+      "Tech Lead": [
+        "Sprint Planning Poker",
+        "Technical Decision Justification",
+        "Stakeholder Translation Services",
+        "Team Velocity Optimization",
+        "Production Incident Commander"
+      ],
+      "Software Architect": [
+        "Box and Arrow Diagram Philosophy",
+        "Scalability Daydreaming",
+        "Best Practices Evangelism",
+        "Tool Selection Analysis Paralysis",
+        "Technical Roadmap Fantasy Writing"
+      ],
+      "Principal Engineer": [
+        "Cross-Team Problem Solving",
+        "Technical Strategy Vision Quests",
+        "Senior Leadership Whispering",
+        "Innovation Lab Project Sponsorship",
+        "Industry Conference Speaking"
+      ],
+      "VP of Engineering": [
+        "Org Chart Restructuring",
+        "Hiring Pipeline Management",
+        "Budget Defense Preparation",
+        "Technical Due Diligence",
+        "Engineering Culture Definition"
+      ],
+      "CTO": [
+        "Board Presentation Tech Explanations",
+        "Strategic Technology Decisions",
+        "Innovation Investment Bets",
+        "Tech Press Interview Practice",
+        "Future of Technology Pontificating"
+      ]
+    },
+
+    "Scientist": {
+      "Curious Observer": [
+        "Wikipedia Rabbit Hole Diving",
+        "Question Formulation Practice",
+        "Hypothesis Napkin Scribbling",
+        "YouTube Documentary Binging",
+        "Wondering Why Things Are"
+      ],
+      "Lab Assistant": [
+        "Glassware Washing Championship",
+        "Pipette Tip Restocking",
+        "Following Protocols Exactly",
+        "Safety Training Completion",
+        "Equipment Maintenance Logs"
+      ],
+      "Research Technician": [
+        "Data Entry Marathon",
+        "Sample Labeling Precision",
+        "Protocol Optimization Attempts",
+        "Equipment Troubleshooting",
+        "Inventory Management"
+      ],
+      "Graduate Researcher": [
+        "Thesis Chapter Anxiety",
+        "Advisor Meeting Preparation",
+        "Failed Experiment Interpretation",
+        "Conference Abstract Deadline Panic",
+        "Imposter Syndrome Management"
+      ],
+      "Postdoctoral Fellow": [
+        "Grant Application Marathon",
+        "Paper Revision Cycle 7",
+        "Lab Meeting Presentation Prep",
+        "Job Market Anxiety",
+        "PI Relationship Navigation"
+      ],
+      "Research Scientist": [
+        "Peer Review Diplomacy",
+        "Funding Proposal Writing",
+        "Collaboration Network Building",
+        "Student Supervision",
+        "Research Direction Decisions"
+      ],
+      "Senior Researcher": [
+        "Lab Management Challenges",
+        "Grant Portfolio Juggling",
+        "Strategic Research Planning",
+        "Industry Partnership Development",
+        "Publication Strategy"
+      ],
+      "Principal Investigator": [
+        "Big Grant Vision Writing",
+        "Team Building and Mentoring",
+        "Department Politics Navigation",
+        "Research Empire Building",
+        "Scientific Advisory Roles"
+      ],
+      "Department Head": [
+        "Administrative Meeting Survival",
+        "Resource Allocation Decisions",
+        "Hiring Committee Leadership",
+        "Strategic Planning Documents",
+        "Budget Justification"
+      ],
+      "Science Legend": [
+        "Nobel Committee Correspondence",
+        "Honorary Degree Collection",
+        "Legacy Project Supervision",
+        "Memoir Writing",
+        "Next Generation Inspiration"
+      ]
+    },
+
+    "Engineer": {
+      "Tape-and-Hope Fixer": [
+        "Adding More Tape",
+        "WD-40 Application Strategy",
+        "YouTube Tutorial Following",
+        "Percussive Maintenance",
+        "Reading Instructions (Finally)"
+      ],
+      "Parts Sorter": [
+        "Screw Type Identification",
+        "Component Organization",
+        "Inventory System Creation",
+        "Tool Organization Attempts",
+        "Finding the Right Size Thing"
+      ],
+      "Junior Engineer": [
+        "CAD Software Learning",
+        "Senior Engineer Shadowing",
+        "Calculation Double-Checking",
+        "First Design Review Nerves",
+        "Standards Document Reading"
+      ],
+      "Design Engineer": [
+        "3D Modeling Marathon",
+        "Tolerance Stack-Up Anxiety",
+        "Prototype Iteration Cycle",
+        "Design for Manufacturing Constraints",
+        "BOM Management"
+      ],
+      "Project Engineer": [
+        "Timeline Optimization",
+        "Vendor Coordination",
+        "Technical Specification Writing",
+        "Cross-Functional Meeting Leadership",
+        "Risk Assessment Documentation"
+      ],
+      "Senior Engineer": [
+        "Technical Mentoring",
+        "Design Review Leadership",
+        "Process Improvement Initiatives",
+        "Root Cause Analysis",
+        "Best Practices Documentation"
+      ],
+      "Lead Engineer": [
+        "Team Technical Direction",
+        "Resource Planning",
+        "Stakeholder Communication",
+        "Technical Decision Authority",
+        "Innovation Project Championing"
+      ],
+      "Principal Engineer": [
+        "Strategic Technical Planning",
+        "Cross-Department Collaboration",
+        "Industry Standards Involvement",
+        "Patent Application Review",
+        "Technical Excellence Advocacy"
+      ],
+      "Chief Engineer": [
+        "Engineering Vision Setting",
+        "Major Program Oversight",
+        "Executive Technical Advisory",
+        "Industry Representation",
+        "Technical Strategy Development"
+      ],
+      "Engineering Legend": [
+        "Innovation History Making",
+        "Industry Award Collection",
+        "Future Engineer Inspiration",
+        "Technical Legacy Building",
+        "Engineering Hall of Fame Acceptance"
+      ]
+    }
+  },
+
+  "fallback_tasks": [
+    "Doing Important Work Stuff",
+    "Being Professionally Productive",
+    "Contributing to Quarterly Goals",
+    "Synergizing the Workflow",
+    "Executing Strategic Initiatives"
+  ]
+}
+

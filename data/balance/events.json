@@ -1,0 +1,281 @@
+{
+  "version": 1,
+  "description": "Random events that can occur and affect gameplay. NOT YET IMPLEMENTED - structure only.",
+  
+  "event_settings": {
+    "enabled": false,
+    "check_frequency_minutes": 60,
+    "max_events_per_day": 3,
+    "min_day_for_events": 3,
+    "event_cooldown_hours": 4
+  },
+  
+  "event_categories": {
+    "work": {
+      "description": "Events that happen during work",
+      "weight": 30
+    },
+    "personal": {
+      "description": "Personal life events",
+      "weight": 25
+    },
+    "financial": {
+      "description": "Money-related events",
+      "weight": 20
+    },
+    "social": {
+      "description": "Social interactions",
+      "weight": 15
+    },
+    "random": {
+      "description": "Misc unexpected events",
+      "weight": 10
+    }
+  },
+  
+  "events": [
+    {
+      "id": "bonus_day",
+      "name": "Surprise Bonus!",
+      "description": "Your boss noticed your hard work!",
+      "category": "work",
+      "rarity": "uncommon",
+      "weight": 15,
+      "conditions": {
+        "min_position_level": 2,
+        "is_working": true
+      },
+      "effects": {
+        "money": 50,
+        "mood": 10,
+        "message": "You received a surprise bonus of 50 coins!"
+      }
+    },
+    {
+      "id": "coffee_spill",
+      "name": "Coffee Catastrophe",
+      "description": "You spilled coffee on your keyboard...",
+      "category": "work",
+      "rarity": "common",
+      "weight": 20,
+      "conditions": {
+        "is_working": true
+      },
+      "effects": {
+        "mood": -5,
+        "productivity_modifier": -2,
+        "duration_hours": 2,
+        "message": "Coffee spill! Productivity reduced for 2 hours."
+      }
+    },
+    {
+      "id": "inspiration_strike",
+      "name": "Moment of Inspiration",
+      "description": "A brilliant idea comes to mind!",
+      "category": "work",
+      "rarity": "rare",
+      "weight": 10,
+      "conditions": {
+        "mood_min": 40
+      },
+      "effects": {
+        "progress_points": 25,
+        "mood": 5,
+        "message": "Inspiration strikes! Gained 25 bonus PP!"
+      }
+    },
+    {
+      "id": "found_money",
+      "name": "Lucky Find",
+      "description": "You found some money on the ground!",
+      "category": "financial",
+      "rarity": "uncommon",
+      "weight": 15,
+      "conditions": {},
+      "effects": {
+        "money": {"min": 5, "max": 25},
+        "mood": 3,
+        "message": "You found {amount} coins on the ground!"
+      }
+    },
+    {
+      "id": "unexpected_expense",
+      "name": "Unexpected Expense",
+      "description": "Something broke and needs fixing...",
+      "category": "financial",
+      "rarity": "uncommon",
+      "weight": 18,
+      "conditions": {
+        "money_min": 30
+      },
+      "effects": {
+        "money": {"min": -30, "max": -15},
+        "mood": -5,
+        "message": "Unexpected expense! Lost {amount} coins."
+      }
+    },
+    {
+      "id": "good_sleep",
+      "name": "Restful Night",
+      "description": "You had an exceptionally good sleep!",
+      "category": "personal",
+      "rarity": "common",
+      "weight": 20,
+      "conditions": {
+        "is_sleeping": true,
+        "rest_max": 50
+      },
+      "effects": {
+        "rest": 20,
+        "mood": 5,
+        "message": "What a great sleep! Extra rest restored."
+      }
+    },
+    {
+      "id": "nightmare",
+      "name": "Bad Dream",
+      "description": "You had a disturbing nightmare...",
+      "category": "personal",
+      "rarity": "common",
+      "weight": 15,
+      "conditions": {
+        "is_sleeping": true
+      },
+      "effects": {
+        "rest": -10,
+        "mood": -5,
+        "message": "Nightmare! Woke up feeling uneasy."
+      }
+    },
+    {
+      "id": "compliment",
+      "name": "Kind Words",
+      "description": "Someone said something nice to you!",
+      "category": "social",
+      "rarity": "common",
+      "weight": 25,
+      "conditions": {},
+      "effects": {
+        "mood": 8,
+        "message": "A stranger complimented you! Mood boosted."
+      }
+    },
+    {
+      "id": "rude_encounter",
+      "name": "Rude Customer",
+      "description": "Someone was rude to you...",
+      "category": "social",
+      "rarity": "common",
+      "weight": 20,
+      "conditions": {
+        "is_working": true
+      },
+      "effects": {
+        "mood": -8,
+        "message": "A rude person ruined your mood..."
+      }
+    },
+    {
+      "id": "power_outage",
+      "name": "Power Outage",
+      "description": "The power went out briefly!",
+      "category": "random",
+      "rarity": "rare",
+      "weight": 8,
+      "conditions": {
+        "is_working": true
+      },
+      "effects": {
+        "progress_points": -10,
+        "mood": -3,
+        "message": "Power outage! Lost some work progress."
+      }
+    },
+    {
+      "id": "free_food",
+      "name": "Free Food!",
+      "description": "Someone brought free food to share!",
+      "category": "random",
+      "rarity": "uncommon",
+      "weight": 12,
+      "conditions": {},
+      "effects": {
+        "hunger": -20,
+        "mood": 5,
+        "message": "Free food! Your hunger decreased."
+      }
+    },
+    {
+      "id": "promotion_rumor",
+      "name": "Promotion Whispers",
+      "description": "You heard rumors about a possible promotion...",
+      "category": "work",
+      "rarity": "rare",
+      "weight": 10,
+      "conditions": {
+        "min_position_level": 1,
+        "max_position_level": 9
+      },
+      "effects": {
+        "mood": 10,
+        "productivity_modifier": 2,
+        "duration_hours": 4,
+        "message": "Promotion rumors boost your motivation!"
+      }
+    },
+    {
+      "id": "traffic_jam",
+      "name": "Traffic Jam",
+      "description": "Heavy traffic delayed your commute...",
+      "category": "random",
+      "rarity": "common",
+      "weight": 15,
+      "conditions": {
+        "is_traveling": true
+      },
+      "effects": {
+        "travel_time_modifier": 1.5,
+        "mood": -3,
+        "message": "Traffic jam! Travel takes longer."
+      }
+    },
+    {
+      "id": "lucky_break",
+      "name": "Lucky Break",
+      "description": "Everything seems to go your way today!",
+      "category": "random",
+      "rarity": "very_rare",
+      "weight": 5,
+      "conditions": {},
+      "effects": {
+        "mood": 15,
+        "money": 20,
+        "progress_points": 15,
+        "message": "Lucky day! Everything's going great!"
+      }
+    },
+    {
+      "id": "bad_day",
+      "name": "Murphy's Law",
+      "description": "Everything that can go wrong, does...",
+      "category": "random",
+      "rarity": "rare",
+      "weight": 8,
+      "conditions": {},
+      "effects": {
+        "mood": -10,
+        "productivity_modifier": -3,
+        "duration_hours": 3,
+        "message": "Nothing is going right today..."
+      }
+    }
+  ],
+  
+  "rarity_weights": {
+    "common": 50,
+    "uncommon": 30,
+    "rare": 15,
+    "very_rare": 5
+  }
+}
+

@@ -1,0 +1,6 @@
+{
+  "version": 1,
+  "real_seconds_per_game_minute": 0.625,
+  "notes": "1 in-game minute = 0.625 real seconds. 1 in-game day (24h) = 15 real minutes."
+}
+

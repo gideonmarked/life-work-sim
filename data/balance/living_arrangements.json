@@ -1,0 +1,30 @@
+{
+  "version": 1,
+  "arrangements": [
+	{ "tier": 1, "id": "park_bench", "name": "Park Bench", "stats": { "comfort": 1, "productivity": 1, "reputation": 1, "storage": 2, "stability": 1 }, "price": 0 },
+	{ "tier": 2, "id": "cardboard_shelter", "name": "Cardboard Shelter", "stats": { "comfort": 1, "productivity": 1, "reputation": 1, "storage": 4, "stability": 1 }, "price": 5, "via_item": "cardboard_box" },
+	{ "tier": 3, "id": "tent", "name": "Tent", "stats": { "comfort": 2, "productivity": 1, "reputation": 1, "storage": 6, "stability": 2 }, "price": 50, "via_item": "camping_tent" },
+	{ "tier": 4, "id": "abandoned_house", "name": "Abandoned House", "stats": { "comfort": -2, "productivity": 2, "reputation": 1, "storage": 8, "stability": 2 }, "price": 50 },
+	{ "tier": 5, "id": "squat_room", "name": "Squat Room", "stats": { "comfort": 4, "productivity": 3, "reputation": 2, "storage": 10, "stability": 3 }, "price": 150 },
+	{ "tier": 6, "id": "storage_unit_corner", "name": "Storage Unit Corner", "stats": { "comfort": 2, "productivity": 2, "reputation": 1, "storage": 18, "stability": 4 }, "price": 200 },
+	{ "tier": 7, "id": "shipping_container_home", "name": "Shipping Container Home", "stats": { "comfort": 5, "productivity": 4, "reputation": 2, "storage": 20, "stability": 5 }, "price": 400 },
+	{ "tier": 8, "id": "tiny_house", "name": "Tiny House", "stats": { "comfort": 7, "productivity": 5, "reputation": 3, "storage": 16, "stability": 6 }, "price": 800 },
+	{ "tier": 9, "id": "studio_apartment", "name": "Studio Apartment", "stats": { "comfort": 6, "productivity": 6, "reputation": 4, "storage": 14, "stability": 7 }, "price": 1200 },
+	{ "tier": 10, "id": "shared_apartment", "name": "Shared Apartment", "stats": { "comfort": 5, "productivity": 5, "reputation": 4, "storage": 13, "stability": 6 }, "price": 1000 },
+	{ "tier": 11, "id": "basement_unit", "name": "Basement Unit", "stats": { "comfort": 6, "productivity": 5, "reputation": 3, "storage": 18, "stability": 6 }, "price": 1500 },
+	{ "tier": 12, "id": "one_bedroom_apartment", "name": "1-Bedroom Apartment", "stats": { "comfort": 8, "productivity": 7, "reputation": 6, "storage": 20, "stability": 8 }, "price": 2500 },
+	{ "tier": 13, "id": "two_bedroom_apartment", "name": "2-Bedroom Apartment", "stats": { "comfort": 9, "productivity": 7, "reputation": 7, "storage": 23, "stability": 8 }, "price": 4000 },
+	{ "tier": 14, "id": "townhouse", "name": "Townhouse", "stats": { "comfort": 9, "productivity": 8, "reputation": 7, "storage": 24, "stability": 9 }, "price": 6000 },
+	{ "tier": 15, "id": "condo_unit", "name": "Condo Unit", "stats": { "comfort": 9, "productivity": 8, "reputation": 8, "storage": 21, "stability": 9 }, "price": 8000 },
+	{ "tier": 16, "id": "small_suburban_house", "name": "Small Suburban House", "stats": { "comfort": 10, "productivity": 8, "reputation": 7, "storage": 26, "stability": 9 }, "price": 12000 },
+	{ "tier": 17, "id": "modern_house", "name": "Modern House", "stats": { "comfort": 10, "productivity": 9, "reputation": 8, "storage": 28, "stability": 9 }, "price": 18000 },
+	{ "tier": 18, "id": "smart_home", "name": "Smart Home", "stats": { "comfort": 10, "productivity": 10, "reputation": 8, "storage": 29, "stability": 10 }, "price": 25000 },
+	{ "tier": 19, "id": "luxury_condo", "name": "Luxury Condo", "stats": { "comfort": 10, "productivity": 9, "reputation": 9, "storage": 25, "stability": 10 }, "price": 35000 },
+	{ "tier": 20, "id": "loft_penthouse", "name": "Loft Penthouse", "stats": { "comfort": 10, "productivity": 9, "reputation": 10, "storage": 27, "stability": 10 }, "price": 50000 },
+	{ "tier": 21, "id": "beach_house", "name": "Beach House", "stats": { "comfort": 10, "productivity": 8, "reputation": 10, "storage": 28, "stability": 9 }, "price": 75000 },
+	{ "tier": 22, "id": "private_villa", "name": "Private Villa", "stats": { "comfort": 10, "productivity": 9, "reputation": 10, "storage": 32, "stability": 10 }, "price": 100000 },
+	{ "tier": 23, "id": "estate_home", "name": "Estate Home", "stats": { "comfort": 10, "productivity": 9, "reputation": 10, "storage": 35, "stability": 10 }, "price": 150000 },
+	{ "tier": 24, "id": "mansion", "name": "Mansion", "stats": { "comfort": 10, "productivity": 10, "reputation": 10, "storage": 37, "stability": 10 }, "price": 250000 },
+	{ "tier": 25, "id": "mega_mansion", "name": "Mega Mansion", "stats": { "comfort": 10, "productivity": 10, "reputation": 10, "storage": 40, "stability": 10 }, "price": 500000 }
+  ]
+}

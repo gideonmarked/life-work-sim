@@ -1,0 +1,46 @@
+{
+  "version": 1,
+  "description": "Operating hours for stores and locations",
+
+  "locations": {
+    "Grocery": {
+      "name": "Grocery Store",
+      "open_hour": 6,
+      "close_hour": 22,
+      "closed_message": "Grocery is closed (opens 6am - 10pm)"
+    },
+    "Mall": {
+      "name": "Shopping Mall",
+      "open_hour": 10,
+      "close_hour": 21,
+      "closed_message": "Mall is closed (opens 10am - 9pm)"
+    },
+    "Home": {
+      "name": "Home",
+      "open_hour": 0,
+      "close_hour": 24,
+      "always_open": true
+    },
+    "Work": {
+      "name": "Workplace",
+      "open_hour": 0,
+      "close_hour": 24,
+      "always_open": true,
+      "notes": "Work is always available but productivity may vary"
+    }
+  },
+
+  "time_periods": {
+    "morning": { "start": 5, "end": 12, "name": "Morning" },
+    "afternoon": { "start": 12, "end": 17, "name": "Afternoon" },
+    "evening": { "start": 17, "end": 21, "name": "Evening" },
+    "night": { "start": 21, "end": 5, "name": "Night" }
+  },
+
+  "ideal_sleep_hours": {
+    "start": 22,
+    "end": 6,
+    "rest_bonus_multiplier": 1.2
+  }
+}
+

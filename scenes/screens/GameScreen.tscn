@@ -1,0 +1,1141 @@
+[gd_scene load_steps=3 format=3 uid="uid://bhxk5m2v8q1yp"]
+
+[ext_resource type="Script" path="res://scripts/ui/GameScreen.gd" id="1_game"]
+[ext_resource type="Script" path="res://scripts/ui/FloatingWindow.gd" id="2_float"]
+
+[node name="GameScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+script = ExtResource("1_game")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+color = Color(0.06, 0.06, 0.08, 0.9)
+
+[node name="CloseBtn" type="Button" parent="."]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 0
+offset_left = 12.0
+offset_top = 12.0
+offset_right = 44.0
+offset_bottom = 44.0
+focus_mode = 0
+mouse_default_cursor_shape = 2
+theme_override_colors/font_color = Color(0.9, 0.9, 0.9, 1)
+theme_override_colors/font_hover_color = Color(1, 0.4, 0.4, 1)
+theme_override_colors/font_pressed_color = Color(1, 0.2, 0.2, 1)
+theme_override_font_sizes/font_size = 20
+flat = true
+text = "✕"
+
+[node name="MoveBtn" type="Button" parent="."]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -44.0
+offset_top = 12.0
+offset_right = -12.0
+offset_bottom = 44.0
+grow_horizontal = 0
+focus_mode = 0
+mouse_default_cursor_shape = 9
+theme_override_colors/font_color = Color(0.9, 0.9, 0.9, 1)
+theme_override_colors/font_hover_color = Color(0.7, 0.85, 1, 1)
+theme_override_font_sizes/font_size = 18
+flat = true
+text = "✥"
+
+[node name="TopBar" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 50.0
+offset_right = -50.0
+offset_bottom = 36.0
+grow_horizontal = 2
+
+[node name="TopBarBG" type="ColorRect" parent="TopBar"]
+layout_mode = 2
+color = Color(0.1, 0.1, 0.12, 0.9)
+
+[node name="HBox" type="HBoxContainer" parent="TopBar"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="TimeLabel" type="Label" parent="TopBar/HBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.85, 0.8, 0.7, 1)
+theme_override_font_sizes/font_size = 13
+text = "Day 1 | 06:00"
+
+[node name="MoneyLabel" type="Label" parent="TopBar/HBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.95, 0.85, 0.4, 1)
+theme_override_font_sizes/font_size = 13
+text = "50 coins"
+
+[node name="Spacer" type="Control" parent="TopBar/HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="CharacterLabel" type="Label" parent="TopBar/HBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.75, 0.85, 0.9, 1)
+theme_override_font_sizes/font_size = 13
+text = "Player - App Suggester (Coder Lv1)"
+
+[node name="MainContainer" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 40.0
+offset_bottom = -80.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 4
+
+[node name="LeftPanel" type="PanelContainer" parent="MainContainer"]
+custom_minimum_size = Vector2(180, 0)
+layout_mode = 2
+
+[node name="LeftBG" type="ColorRect" parent="MainContainer/LeftPanel"]
+layout_mode = 2
+color = Color(0.08, 0.08, 0.1, 0.9)
+
+[node name="VBox" type="VBoxContainer" parent="MainContainer/LeftPanel"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="StatsTitle" type="Label" parent="MainContainer/LeftPanel/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.9, 0.85, 0.7, 1)
+theme_override_font_sizes/font_size = 12
+text = "CHARACTER"
+horizontal_alignment = 1
+
+[node name="Separator1" type="HSeparator" parent="MainContainer/LeftPanel/VBox"]
+layout_mode = 2
+
+[node name="NeedsContainer" type="VBoxContainer" parent="MainContainer/LeftPanel/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 3
+
+[node name="HungerBar" type="HBoxContainer" parent="MainContainer/LeftPanel/VBox/NeedsContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MainContainer/LeftPanel/VBox/NeedsContainer/HungerBar"]
+custom_minimum_size = Vector2(90, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.9, 0.7, 0.5, 1)
+theme_override_font_sizes/font_size = 10
+text = "Belly Alarm"
+
+[node name="Bar" type="ProgressBar" parent="MainContainer/LeftPanel/VBox/NeedsContainer/HungerBar"]
+custom_minimum_size = Vector2(0, 12)
+layout_mode = 2
+size_flags_horizontal = 3
+max_value = 100.0
+value = 30.0
+show_percentage = false
+
+[node name="Val" type="Label" parent="MainContainer/LeftPanel/VBox/NeedsContainer/HungerBar"]
+custom_minimum_size = Vector2(24, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 10
+text = "30"
+horizontal_alignment = 2
+
+[node name="RestBar" type="HBoxContainer" parent="MainContainer/LeftPanel/VBox/NeedsContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MainContainer/LeftPanel/VBox/NeedsContainer/RestBar"]
+custom_minimum_size = Vector2(90, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.5, 0.75, 0.9, 1)
+theme_override_font_sizes/font_size = 10
+text = "Eye-Lid Budget"
+
+[node name="Bar" type="ProgressBar" parent="MainContainer/LeftPanel/VBox/NeedsContainer/RestBar"]
+custom_minimum_size = Vector2(0, 12)
+layout_mode = 2
+size_flags_horizontal = 3
+max_value = 100.0
+value = 80.0
+show_percentage = false
+
+[node name="Val" type="Label" parent="MainContainer/LeftPanel/VBox/NeedsContainer/RestBar"]
+custom_minimum_size = Vector2(24, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 10
+text = "80"
+horizontal_alignment = 2
+
+[node name="MoodBar" type="HBoxContainer" parent="MainContainer/LeftPanel/VBox/NeedsContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MainContainer/LeftPanel/VBox/NeedsContainer/MoodBar"]
+custom_minimum_size = Vector2(90, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.9, 0.75, 0.85, 1)
+theme_override_font_sizes/font_size = 10
+text = "Vibe Spice"
+
+[node name="Bar" type="ProgressBar" parent="MainContainer/LeftPanel/VBox/NeedsContainer/MoodBar"]
+custom_minimum_size = Vector2(0, 12)
+layout_mode = 2
+size_flags_horizontal = 3
+max_value = 100.0
+value = 50.0
+show_percentage = false
+
+[node name="Val" type="Label" parent="MainContainer/LeftPanel/VBox/NeedsContainer/MoodBar"]
+custom_minimum_size = Vector2(24, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 10
+text = "50"
+horizontal_alignment = 2
+
+[node name="Separator2" type="HSeparator" parent="MainContainer/LeftPanel/VBox"]
+layout_mode = 2
+
+[node name="CareerStatsContainer" type="VBoxContainer" parent="MainContainer/LeftPanel/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 1
+
+[node name="ComfortLabel" type="Label" parent="MainContainer/LeftPanel/VBox/CareerStatsContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 10
+text = "Comfort: 1"
+
+[node name="ProductivityLabel" type="Label" parent="MainContainer/LeftPanel/VBox/CareerStatsContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 10
+text = "Productivity: 1"
+
+[node name="ReputationLabel" type="Label" parent="MainContainer/LeftPanel/VBox/CareerStatsContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 10
+text = "Reputation: 1"
+
+[node name="StabilityLabel" type="Label" parent="MainContainer/LeftPanel/VBox/CareerStatsContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 10
+text = "Stability: 1"
+
+[node name="Separator3" type="HSeparator" parent="MainContainer/LeftPanel/VBox"]
+layout_mode = 2
+
+[node name="ProgressContainer" type="VBoxContainer" parent="MainContainer/LeftPanel/VBox"]
+layout_mode = 2
+
+[node name="ProgressTitle" type="Label" parent="MainContainer/LeftPanel/VBox/ProgressContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.7, 0.8, 0.7, 1)
+theme_override_font_sizes/font_size = 10
+text = "Progress"
+
+[node name="ProgressBar" type="ProgressBar" parent="MainContainer/LeftPanel/VBox/ProgressContainer"]
+custom_minimum_size = Vector2(0, 14)
+layout_mode = 2
+max_value = 100.0
+value = 0.0
+
+[node name="ProgressLabel" type="Label" parent="MainContainer/LeftPanel/VBox/ProgressContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 9
+text = "0 / 110 PP"
+horizontal_alignment = 1
+
+[node name="Separator4" type="HSeparator" parent="MainContainer/LeftPanel/VBox"]
+layout_mode = 2
+
+[node name="LivingLabel" type="Label" parent="MainContainer/LeftPanel/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.7, 0.75, 0.8, 1)
+theme_override_font_sizes/font_size = 10
+text = "Living: Park Bench"
+
+[node name="StorageLabel" type="Label" parent="MainContainer/LeftPanel/VBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 10
+text = "Storage: 0/4"
+
+[node name="RoyaltiesLabel" type="Label" parent="MainContainer/LeftPanel/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.95, 0.85, 0.5, 1)
+theme_override_font_sizes/font_size = 10
+text = "Royalties: 0/day"
+
+[node name="CenterPanel" type="PanelContainer" parent="MainContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="CenterBG" type="ColorRect" parent="MainContainer/CenterPanel"]
+layout_mode = 2
+color = Color(0.07, 0.07, 0.09, 0.85)
+
+[node name="CenterVBox" type="VBoxContainer" parent="MainContainer/CenterPanel"]
+layout_mode = 2
+
+[node name="CommentLabel" type="Label" parent="MainContainer/CenterPanel/CenterVBox"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0.8, 0.85, 0.9, 1)
+theme_override_font_sizes/font_size = 14
+text = "\"I am thriving in theory.\""
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="QuoteOverlay" type="Panel" parent="MainContainer/CenterPanel"]
+visible = false
+layout_mode = 2
+
+[node name="QuoteBG" type="ColorRect" parent="MainContainer/CenterPanel/QuoteOverlay"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.05, 0.05, 0.07, 0.95)
+
+[node name="QuoteLabel" type="Label" parent="MainContainer/CenterPanel/QuoteOverlay"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -180.0
+offset_top = -40.0
+offset_right = 180.0
+offset_bottom = 40.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.98, 0.92, 0.75, 1)
+theme_override_font_sizes/font_size = 16
+text = "\"Small steps count. Even tiny steps.\""
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="RightPanel" type="PanelContainer" parent="MainContainer"]
+custom_minimum_size = Vector2(180, 0)
+layout_mode = 2
+
+[node name="RightBG" type="ColorRect" parent="MainContainer/RightPanel"]
+layout_mode = 2
+color = Color(0.08, 0.08, 0.1, 0.9)
+
+[node name="VBox" type="VBoxContainer" parent="MainContainer/RightPanel"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="QueueTitle" type="Label" parent="MainContainer/RightPanel/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.9, 0.85, 0.7, 1)
+theme_override_font_sizes/font_size = 12
+text = "ACTION QUEUE"
+horizontal_alignment = 1
+
+[node name="Separator" type="HSeparator" parent="MainContainer/RightPanel/VBox"]
+layout_mode = 2
+
+[node name="CurrentActionPanel" type="PanelContainer" parent="MainContainer/RightPanel/VBox"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+
+[node name="CurrentBG" type="ColorRect" parent="MainContainer/RightPanel/VBox/CurrentActionPanel"]
+layout_mode = 2
+color = Color(0.15, 0.2, 0.15, 0.8)
+
+[node name="CurrentVBox" type="VBoxContainer" parent="MainContainer/RightPanel/VBox/CurrentActionPanel"]
+layout_mode = 2
+alignment = 1
+
+[node name="CurrentActionLabel" type="Label" parent="MainContainer/RightPanel/VBox/CurrentActionPanel/CurrentVBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.9, 0.95, 0.9, 1)
+theme_override_font_sizes/font_size = 12
+text = "⚙ Working..."
+horizontal_alignment = 1
+
+[node name="CurrentTimeLabel" type="Label" parent="MainContainer/RightPanel/VBox/CurrentActionPanel/CurrentVBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.7, 0.8, 0.7, 1)
+theme_override_font_sizes/font_size = 10
+text = "45m remaining"
+horizontal_alignment = 1
+
+[node name="CurrentProgressBar" type="ProgressBar" parent="MainContainer/RightPanel/VBox/CurrentActionPanel/CurrentVBox"]
+custom_minimum_size = Vector2(0, 8)
+layout_mode = 2
+max_value = 1.0
+value = 0.25
+show_percentage = false
+
+[node name="QueueContainer" type="VBoxContainer" parent="MainContainer/RightPanel/VBox"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 2
+
+[node name="Queue1" type="Label" parent="MainContainer/RightPanel/VBox/QueueContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.7, 0.7, 0.7, 1)
+theme_override_font_sizes/font_size = 10
+text = "1. ○ Idle (30m)"
+
+[node name="Queue2" type="Label" parent="MainContainer/RightPanel/VBox/QueueContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.6, 0.6, 0.6, 1)
+theme_override_font_sizes/font_size = 10
+text = "2. ○ Idle (30m)"
+
+[node name="Queue3" type="Label" parent="MainContainer/RightPanel/VBox/QueueContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.55, 0.55, 0.55, 1)
+theme_override_font_sizes/font_size = 10
+text = "3. ○ Idle (30m)"
+
+[node name="Queue4" type="Label" parent="MainContainer/RightPanel/VBox/QueueContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.5, 0.5, 0.5, 1)
+theme_override_font_sizes/font_size = 10
+text = "4. ○ Idle (30m)"
+
+[node name="Queue5" type="Label" parent="MainContainer/RightPanel/VBox/QueueContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.45, 0.45, 0.45, 1)
+theme_override_font_sizes/font_size = 10
+text = "5. ○ Idle (30m)"
+
+[node name="Queue6" type="Label" parent="MainContainer/RightPanel/VBox/QueueContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.4, 0.4, 0.4, 1)
+theme_override_font_sizes/font_size = 10
+text = "6. ○ Idle (30m)"
+
+[node name="Separator2" type="HSeparator" parent="MainContainer/RightPanel/VBox"]
+layout_mode = 2
+
+[node name="AddActionContainer" type="VBoxContainer" parent="MainContainer/RightPanel/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 2
+
+[node name="Row1" type="HBoxContainer" parent="MainContainer/RightPanel/VBox/AddActionContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="WorkBtn" type="Button" parent="MainContainer/RightPanel/VBox/AddActionContainer/Row1"]
+custom_minimum_size = Vector2(50, 24)
+layout_mode = 2
+theme_override_font_sizes/font_size = 10
+text = "Work"
+
+[node name="SleepBtn" type="Button" parent="MainContainer/RightPanel/VBox/AddActionContainer/Row1"]
+custom_minimum_size = Vector2(50, 24)
+layout_mode = 2
+theme_override_font_sizes/font_size = 10
+text = "Sleep"
+
+[node name="RestBtn" type="Button" parent="MainContainer/RightPanel/VBox/AddActionContainer/Row1"]
+custom_minimum_size = Vector2(50, 24)
+layout_mode = 2
+theme_override_font_sizes/font_size = 10
+text = "Rest"
+
+[node name="Row2" type="HBoxContainer" parent="MainContainer/RightPanel/VBox/AddActionContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="GroceryBtn" type="Button" parent="MainContainer/RightPanel/VBox/AddActionContainer/Row2"]
+custom_minimum_size = Vector2(55, 24)
+layout_mode = 2
+theme_override_font_sizes/font_size = 10
+text = "Grocery"
+
+[node name="MallBtn" type="Button" parent="MainContainer/RightPanel/VBox/AddActionContainer/Row2"]
+custom_minimum_size = Vector2(45, 24)
+layout_mode = 2
+theme_override_font_sizes/font_size = 10
+text = "Mall"
+
+[node name="SkipBtn" type="Button" parent="MainContainer/RightPanel/VBox/AddActionContainer/Row2"]
+custom_minimum_size = Vector2(45, 24)
+layout_mode = 2
+theme_override_font_sizes/font_size = 10
+text = "Skip"
+
+[node name="BottomBar" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -40.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="BottomBG" type="ColorRect" parent="BottomBar"]
+layout_mode = 2
+color = Color(0.1, 0.1, 0.12, 0.9)
+
+[node name="HBox" type="HBoxContainer" parent="BottomBar"]
+layout_mode = 2
+
+[node name="StatusLabel" type="Label" parent="BottomBar/HBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.7, 0.75, 0.7, 1)
+theme_override_font_sizes/font_size = 11
+text = "Status: Idle"
+
+[node name="AIBtn" type="Button" parent="BottomBar/HBox"]
+custom_minimum_size = Vector2(55, 24)
+layout_mode = 2
+toggle_mode = true
+button_pressed = true
+theme_override_colors/font_color = Color(0.7, 1, 0.7, 1)
+theme_override_font_sizes/font_size = 10
+text = "AI: ON"
+
+[node name="Spacer" type="Control" parent="BottomBar/HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="SpeedContainer" type="HBoxContainer" parent="BottomBar/HBox"]
+layout_mode = 2
+
+[node name="Speed1x" type="Button" parent="BottomBar/HBox/SpeedContainer"]
+custom_minimum_size = Vector2(35, 24)
+layout_mode = 2
+toggle_mode = true
+button_pressed = true
+theme_override_font_sizes/font_size = 10
+text = "1x"
+
+[node name="Speed2x" type="Button" parent="BottomBar/HBox/SpeedContainer"]
+custom_minimum_size = Vector2(35, 24)
+layout_mode = 2
+toggle_mode = true
+theme_override_font_sizes/font_size = 10
+text = "2x"
+
+[node name="Speed5x" type="Button" parent="BottomBar/HBox/SpeedContainer"]
+custom_minimum_size = Vector2(35, 24)
+layout_mode = 2
+toggle_mode = true
+theme_override_font_sizes/font_size = 10
+text = "5x"
+
+[node name="PauseBtn" type="Button" parent="BottomBar/HBox/SpeedContainer"]
+custom_minimum_size = Vector2(45, 24)
+layout_mode = 2
+toggle_mode = true
+theme_override_font_sizes/font_size = 10
+text = "Pause"
+
+[node name="Spacer2" type="Control" parent="BottomBar/HBox"]
+custom_minimum_size = Vector2(15, 0)
+layout_mode = 2
+
+[node name="ConsoleBtn" type="Button" parent="BottomBar/HBox"]
+custom_minimum_size = Vector2(60, 24)
+layout_mode = 2
+theme_override_font_sizes/font_size = 10
+text = "Console"
+
+[node name="InventoryBtn" type="Button" parent="BottomBar/HBox"]
+custom_minimum_size = Vector2(60, 24)
+layout_mode = 2
+theme_override_font_sizes/font_size = 10
+text = "Inventory"
+
+[node name="HousingBtn" type="Button" parent="BottomBar/HBox"]
+custom_minimum_size = Vector2(55, 24)
+layout_mode = 2
+theme_override_font_sizes/font_size = 10
+text = "Housing"
+
+[node name="CareerBtn" type="Button" parent="BottomBar/HBox"]
+custom_minimum_size = Vector2(50, 24)
+layout_mode = 2
+theme_override_font_sizes/font_size = 10
+text = "Career"
+
+[node name="SaveBtn" type="Button" parent="BottomBar/HBox"]
+custom_minimum_size = Vector2(40, 24)
+layout_mode = 2
+theme_override_font_sizes/font_size = 10
+text = "Save"
+
+[node name="MenuBtn" type="Button" parent="BottomBar/HBox"]
+custom_minimum_size = Vector2(40, 24)
+layout_mode = 2
+theme_override_font_sizes/font_size = 10
+text = "Menu"
+
+[node name="FloatingWindows" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="ConsoleWindow" type="Panel" parent="FloatingWindows"]
+visible = false
+layout_mode = 0
+offset_left = 20.0
+offset_top = 50.0
+offset_right = 320.0
+offset_bottom = 280.0
+script = ExtResource("2_float")
+window_title = "Console"
+initial_position = Vector2(20, 50)
+
+[node name="TitleBar" type="Panel" parent="FloatingWindows/ConsoleWindow"]
+layout_mode = 0
+offset_right = 300.0
+offset_bottom = 28.0
+
+[node name="TitleLabel" type="Label" parent="FloatingWindows/ConsoleWindow/TitleBar"]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 6.0
+offset_right = 240.0
+offset_bottom = 22.0
+text = "Console"
+
+[node name="CloseBtn" type="Button" parent="FloatingWindows/ConsoleWindow/TitleBar"]
+layout_mode = 0
+offset_left = 274.0
+offset_top = 2.0
+offset_right = 298.0
+offset_bottom = 26.0
+text = "✕"
+flat = true
+
+[node name="Content" type="Control" parent="FloatingWindows/ConsoleWindow"]
+layout_mode = 0
+offset_top = 30.0
+offset_right = 300.0
+offset_bottom = 230.0
+
+[node name="ConsoleScroll" type="ScrollContainer" parent="FloatingWindows/ConsoleWindow/Content"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ConsoleLog" type="RichTextLabel" parent="FloatingWindows/ConsoleWindow/Content/ConsoleScroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_colors/default_color = Color(0.7, 0.75, 0.7, 1)
+theme_override_font_sizes/normal_font_size = 11
+bbcode_enabled = true
+text = "[color=#666]Console initialized...[/color]"
+scroll_following = true
+
+[node name="InventoryWindow" type="Panel" parent="FloatingWindows"]
+visible = false
+layout_mode = 0
+offset_left = 340.0
+offset_top = 50.0
+offset_right = 600.0
+offset_bottom = 300.0
+script = ExtResource("2_float")
+window_title = "Inventory"
+initial_position = Vector2(340, 50)
+
+[node name="TitleBar" type="Panel" parent="FloatingWindows/InventoryWindow"]
+layout_mode = 0
+offset_right = 260.0
+offset_bottom = 28.0
+
+[node name="TitleLabel" type="Label" parent="FloatingWindows/InventoryWindow/TitleBar"]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 6.0
+offset_right = 200.0
+offset_bottom = 22.0
+text = "Inventory"
+
+[node name="CloseBtn" type="Button" parent="FloatingWindows/InventoryWindow/TitleBar"]
+layout_mode = 0
+offset_left = 234.0
+offset_top = 2.0
+offset_right = 258.0
+offset_bottom = 26.0
+text = "✕"
+flat = true
+
+[node name="Content" type="Control" parent="FloatingWindows/InventoryWindow"]
+layout_mode = 0
+offset_top = 30.0
+offset_right = 260.0
+offset_bottom = 250.0
+
+[node name="InvScroll" type="ScrollContainer" parent="FloatingWindows/InventoryWindow/Content"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="InvItems" type="VBoxContainer" parent="FloatingWindows/InventoryWindow/Content/InvScroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="HousingWindow" type="Panel" parent="FloatingWindows"]
+visible = false
+layout_mode = 0
+offset_left = 180.0
+offset_top = 80.0
+offset_right = 520.0
+offset_bottom = 330.0
+script = ExtResource("2_float")
+window_title = "Housing"
+initial_position = Vector2(180, 80)
+
+[node name="TitleBar" type="Panel" parent="FloatingWindows/HousingWindow"]
+layout_mode = 0
+offset_right = 340.0
+offset_bottom = 28.0
+
+[node name="TitleLabel" type="Label" parent="FloatingWindows/HousingWindow/TitleBar"]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 6.0
+offset_right = 280.0
+offset_bottom = 22.0
+text = "Housing"
+
+[node name="CloseBtn" type="Button" parent="FloatingWindows/HousingWindow/TitleBar"]
+layout_mode = 0
+offset_left = 314.0
+offset_top = 2.0
+offset_right = 338.0
+offset_bottom = 26.0
+text = "✕"
+flat = true
+
+[node name="Content" type="Control" parent="FloatingWindows/HousingWindow"]
+layout_mode = 0
+offset_top = 30.0
+offset_right = 340.0
+offset_bottom = 250.0
+
+[node name="VBox" type="VBoxContainer" parent="FloatingWindows/HousingWindow/Content"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CurrentLabel" type="Label" parent="FloatingWindows/HousingWindow/Content/VBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 11
+text = "Current: Park Bench"
+horizontal_alignment = 1
+
+[node name="HousingScroll" type="ScrollContainer" parent="FloatingWindows/HousingWindow/Content/VBox"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="HousingItems" type="VBoxContainer" parent="FloatingWindows/HousingWindow/Content/VBox/HousingScroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="CareerWindow" type="Panel" parent="FloatingWindows"]
+visible = false
+layout_mode = 0
+offset_left = 100.0
+offset_top = 60.0
+offset_right = 580.0
+offset_bottom = 440.0
+script = ExtResource("2_float")
+window_title = "Career"
+initial_position = Vector2(100, 60)
+
+[node name="TitleBar" type="Panel" parent="FloatingWindows/CareerWindow"]
+layout_mode = 0
+offset_right = 480.0
+offset_bottom = 28.0
+
+[node name="TitleLabel" type="Label" parent="FloatingWindows/CareerWindow/TitleBar"]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 6.0
+offset_right = 400.0
+offset_bottom = 22.0
+text = "Career & Work Details"
+
+[node name="CloseBtn" type="Button" parent="FloatingWindows/CareerWindow/TitleBar"]
+layout_mode = 0
+offset_left = 454.0
+offset_top = 2.0
+offset_right = 478.0
+offset_bottom = 26.0
+text = "✕"
+flat = true
+
+[node name="Content" type="Control" parent="FloatingWindows/CareerWindow"]
+layout_mode = 0
+offset_top = 30.0
+offset_right = 480.0
+offset_bottom = 380.0
+
+[node name="HBox" type="HBoxContainer" parent="FloatingWindows/CareerWindow/Content"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 8
+
+[node name="LeftVBox" type="VBoxContainer" parent="FloatingWindows/CareerWindow/Content/HBox"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="CurrentTitle" type="Label" parent="FloatingWindows/CareerWindow/Content/HBox/LeftVBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.95, 0.9, 0.7, 1)
+theme_override_font_sizes/font_size = 12
+text = "CURRENT POSITION"
+horizontal_alignment = 1
+
+[node name="Sep1" type="HSeparator" parent="FloatingWindows/CareerWindow/Content/HBox/LeftVBox"]
+layout_mode = 2
+
+[node name="BranchLabel" type="Label" parent="FloatingWindows/CareerWindow/Content/HBox/LeftVBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.7, 0.85, 0.95, 1)
+theme_override_font_sizes/font_size = 11
+text = "Branch: Coder"
+
+[node name="TitleLabel" type="Label" parent="FloatingWindows/CareerWindow/Content/HBox/LeftVBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.9, 0.9, 0.9, 1)
+theme_override_font_sizes/font_size = 11
+text = "Title: App Suggester"
+
+[node name="LevelLabel" type="Label" parent="FloatingWindows/CareerWindow/Content/HBox/LeftVBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 11
+text = "Level: 1 / 10"
+
+[node name="Sep2" type="HSeparator" parent="FloatingWindows/CareerWindow/Content/HBox/LeftVBox"]
+layout_mode = 2
+
+[node name="SalaryTitle" type="Label" parent="FloatingWindows/CareerWindow/Content/HBox/LeftVBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.95, 0.85, 0.5, 1)
+theme_override_font_sizes/font_size = 11
+text = "SALARY"
+horizontal_alignment = 1
+
+[node name="BasePayLabel" type="Label" parent="FloatingWindows/CareerWindow/Content/HBox/LeftVBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 10
+text = "Base Pay: 4/hour"
+
+[node name="EPLabel" type="Label" parent="FloatingWindows/CareerWindow/Content/HBox/LeftVBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 10
+text = "Effective Productivity: 10"
+
+[node name="HourlyLabel" type="Label" parent="FloatingWindows/CareerWindow/Content/HBox/LeftVBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.9, 0.95, 0.7, 1)
+theme_override_font_sizes/font_size = 10
+text = "Actual Hourly: 4 coins"
+
+[node name="DailyLabel" type="Label" parent="FloatingWindows/CareerWindow/Content/HBox/LeftVBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.95, 0.9, 0.6, 1)
+theme_override_font_sizes/font_size = 10
+text = "8hr/day Potential: 32 coins"
+
+[node name="Sep3" type="HSeparator" parent="FloatingWindows/CareerWindow/Content/HBox/LeftVBox"]
+layout_mode = 2
+
+[node name="NextTitle" type="Label" parent="FloatingWindows/CareerWindow/Content/HBox/LeftVBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.7, 0.9, 0.7, 1)
+theme_override_font_sizes/font_size = 11
+text = "NEXT PROMOTION"
+horizontal_alignment = 1
+
+[node name="NextPosLabel" type="Label" parent="FloatingWindows/CareerWindow/Content/HBox/LeftVBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 10
+text = "Next: Feature List Farmer"
+
+[node name="NextPayLabel" type="Label" parent="FloatingWindows/CareerWindow/Content/HBox/LeftVBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 10
+text = "Pay: 5/hour"
+
+[node name="ReqPPLabel" type="Label" parent="FloatingWindows/CareerWindow/Content/HBox/LeftVBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 10
+text = "Required: 110 PP"
+
+[node name="ReqItemsLabel" type="Label" parent="FloatingWindows/CareerWindow/Content/HBox/LeftVBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 10
+text = "Items: notebook"
+autowrap_mode = 3
+
+[node name="RightVBox" type="VBoxContainer" parent="FloatingWindows/CareerWindow/Content/HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 4
+
+[node name="TreeTitle" type="Label" parent="FloatingWindows/CareerWindow/Content/HBox/RightVBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.95, 0.9, 0.7, 1)
+theme_override_font_sizes/font_size = 12
+text = "CAREER TREE"
+horizontal_alignment = 1
+
+[node name="BranchSelect" type="OptionButton" parent="FloatingWindows/CareerWindow/Content/HBox/RightVBox"]
+custom_minimum_size = Vector2(0, 26)
+layout_mode = 2
+theme_override_font_sizes/font_size = 10
+selected = 0
+
+[node name="Sep" type="HSeparator" parent="FloatingWindows/CareerWindow/Content/HBox/RightVBox"]
+layout_mode = 2
+
+[node name="TreeScroll" type="ScrollContainer" parent="FloatingWindows/CareerWindow/Content/HBox/RightVBox"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="TreeItems" type="VBoxContainer" parent="FloatingWindows/CareerWindow/Content/HBox/RightVBox/TreeScroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 2
+
+[node name="HoverFadeTimer" type="Timer" parent="."]
+wait_time = 0.8
+one_shot = true
+
+[node name="DailyStatsOverlay" type="Panel" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="BG" type="ColorRect" parent="DailyStatsOverlay"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.02, 0.02, 0.04, 0.95)
+
+[node name="CenterContainer" type="CenterContainer" parent="DailyStatsOverlay"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="StatsPanel" type="PanelContainer" parent="DailyStatsOverlay/CenterContainer"]
+custom_minimum_size = Vector2(400, 500)
+layout_mode = 2
+
+[node name="StatsPanelBG" type="ColorRect" parent="DailyStatsOverlay/CenterContainer/StatsPanel"]
+layout_mode = 2
+color = Color(0.08, 0.08, 0.1, 0.98)
+
+[node name="VBox" type="VBoxContainer" parent="DailyStatsOverlay/CenterContainer/StatsPanel"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Title" type="Label" parent="DailyStatsOverlay/CenterContainer/StatsPanel/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.95, 0.9, 0.7, 1)
+theme_override_font_sizes/font_size = 20
+text = "DAY 1 COMPLETE"
+horizontal_alignment = 1
+
+[node name="Subtitle" type="Label" parent="DailyStatsOverlay/CenterContainer/StatsPanel/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.7, 0.75, 0.8, 1)
+theme_override_font_sizes/font_size = 12
+text = "Here's how your day went..."
+horizontal_alignment = 1
+
+[node name="Sep1" type="HSeparator" parent="DailyStatsOverlay/CenterContainer/StatsPanel/VBox"]
+layout_mode = 2
+
+[node name="StatsGrid" type="GridContainer" parent="DailyStatsOverlay/CenterContainer/StatsPanel/VBox"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/h_separation = 20
+theme_override_constants/v_separation = 6
+columns = 2
+
+[node name="MoneyLabel" type="Label" parent="DailyStatsOverlay/CenterContainer/StatsPanel/VBox/StatsGrid"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "Money:"
+
+[node name="MoneyValue" type="Label" parent="DailyStatsOverlay/CenterContainer/StatsPanel/VBox/StatsGrid"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.95, 0.85, 0.4, 1)
+theme_override_font_sizes/font_size = 12
+text = "150 coins (+50)"
+
+[node name="EarnedLabel" type="Label" parent="DailyStatsOverlay/CenterContainer/StatsPanel/VBox/StatsGrid"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "Earned Today:"
+
+[node name="EarnedValue" type="Label" parent="DailyStatsOverlay/CenterContainer/StatsPanel/VBox/StatsGrid"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.7, 0.95, 0.7, 1)
+theme_override_font_sizes/font_size = 12
+text = "75 coins"
+
+[node name="SpentLabel" type="Label" parent="DailyStatsOverlay/CenterContainer/StatsPanel/VBox/StatsGrid"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "Spent Today:"
+
+[node name="SpentValue" type="Label" parent="DailyStatsOverlay/CenterContainer/StatsPanel/VBox/StatsGrid"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.95, 0.6, 0.6, 1)
+theme_override_font_sizes/font_size = 12
+text = "25 coins"
+
+[node name="RoyaltiesLabel" type="Label" parent="DailyStatsOverlay/CenterContainer/StatsPanel/VBox/StatsGrid"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "Royalties:"
+
+[node name="RoyaltiesValue" type="Label" parent="DailyStatsOverlay/CenterContainer/StatsPanel/VBox/StatsGrid"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.95, 0.85, 0.5, 1)
+theme_override_font_sizes/font_size = 12
+text = "0 coins"
+
+[node name="Sep2" type="HSeparator" parent="DailyStatsOverlay/CenterContainer/StatsPanel/VBox"]
+layout_mode = 2
+
+[node name="PromotionLabel" type="Label" parent="DailyStatsOverlay/CenterContainer/StatsPanel/VBox"]
+visible = false
+layout_mode = 2
+theme_override_colors/font_color = Color(0.3, 0.98, 0.5, 1)
+theme_override_font_sizes/font_size = 14
+text = "🎉 PROMOTED to: New Title!"
+horizontal_alignment = 1
+
+[node name="PositionLabel" type="Label" parent="DailyStatsOverlay/CenterContainer/StatsPanel/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.75, 0.85, 0.95, 1)
+theme_override_font_sizes/font_size = 12
+text = "Position: App Suggester (Coder Lv1)"
+horizontal_alignment = 1
+
+[node name="ProgressLabel" type="Label" parent="DailyStatsOverlay/CenterContainer/StatsPanel/VBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "Progress: 45.0 / 110 PP"
+horizontal_alignment = 1
+
+[node name="HoursWorkedLabel" type="Label" parent="DailyStatsOverlay/CenterContainer/StatsPanel/VBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "Hours Worked: 6"
+horizontal_alignment = 1
+
+[node name="Sep3" type="HSeparator" parent="DailyStatsOverlay/CenterContainer/StatsPanel/VBox"]
+layout_mode = 2
+
+[node name="NeedsTitle" type="Label" parent="DailyStatsOverlay/CenterContainer/StatsPanel/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.9, 0.85, 0.7, 1)
+theme_override_font_sizes/font_size = 11
+text = "END OF DAY STATUS"
+horizontal_alignment = 1
+
+[node name="NeedsGrid" type="GridContainer" parent="DailyStatsOverlay/CenterContainer/StatsPanel/VBox"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/h_separation = 15
+theme_override_constants/v_separation = 4
+columns = 3
+
+[node name="HungerLabel" type="Label" parent="DailyStatsOverlay/CenterContainer/StatsPanel/VBox/NeedsGrid"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.9, 0.7, 0.5, 1)
+theme_override_font_sizes/font_size = 11
+text = "Belly Alarm: 45"
+
+[node name="RestLabel" type="Label" parent="DailyStatsOverlay/CenterContainer/StatsPanel/VBox/NeedsGrid"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.5, 0.75, 0.9, 1)
+theme_override_font_sizes/font_size = 11
+text = "Eye-Lid Budget: 60"
+
+[node name="MoodLabel" type="Label" parent="DailyStatsOverlay/CenterContainer/StatsPanel/VBox/NeedsGrid"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.9, 0.75, 0.85, 1)
+theme_override_font_sizes/font_size = 11
+text = "Vibe Spice: 50"
+
+[node name="Sep4" type="HSeparator" parent="DailyStatsOverlay/CenterContainer/StatsPanel/VBox"]
+layout_mode = 2
+
+[node name="SavedLabel" type="Label" parent="DailyStatsOverlay/CenterContainer/StatsPanel/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.5, 0.8, 0.5, 1)
+theme_override_font_sizes/font_size = 10
+text = "Game auto-saved."
+horizontal_alignment = 1
+
+[node name="Spacer" type="Control" parent="DailyStatsOverlay/CenterContainer/StatsPanel/VBox"]
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
+
+[node name="ContinueBtn" type="Button" parent="DailyStatsOverlay/CenterContainer/StatsPanel/VBox"]
+custom_minimum_size = Vector2(200, 40)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 14
+text = "Continue (60s)"
+
+[node name="AutoContinueTimer" type="Timer" parent="DailyStatsOverlay"]
+wait_time = 1.0

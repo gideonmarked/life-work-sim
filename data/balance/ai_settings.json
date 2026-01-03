@@ -1,0 +1,32 @@
+{
+	"description": "Settings for character AI decision making",
+	"priority_thresholds": {
+		"critical_hunger": 85,
+		"high_hunger": 70,
+		"critical_rest": 15,
+		"high_tired": 30,
+		"low_mood": 25
+	},
+	"base_action_weights": {
+		"idle": 5,
+		"work": 50,
+		"sleep": 20,
+		"eat": 30,
+		"rest": 15,
+		"travel_grocery": 10,
+		"travel_mall": 5,
+		"create_release": 10
+	},
+	"work_modifiers": {
+		"momentum_bonus": 10,
+		"max_momentum_hours": 4,
+		"burnout_penalty": -20,
+		"max_work_in_queue": 3
+	},
+	"time_preferences": {
+		"sleep_bonus_start_hour": 22,
+		"sleep_bonus_end_hour": 6,
+		"sleep_time_bonus": 30
+	}
+}
+

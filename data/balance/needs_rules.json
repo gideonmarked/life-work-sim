@@ -1,0 +1,40 @@
+{
+  "version": 1,
+  "ranges": {
+    "hunger": { "min": 0, "max": 100 },
+    "rest": { "min": 0, "max": 100 },
+    "mood": { "min": 0, "max": 100 }
+  },
+  "mood_modifier": {
+    "neutral": 50,
+    "step": 10,
+    "min": -3,
+    "max": 3
+  },
+  "need_penalties": {
+    "hunger_thresholds": [
+      { "at_or_above": 80, "penalty": -2 },
+      { "at_or_above": 95, "penalty": -4 }
+    ],
+    "rest_thresholds": [
+      { "at_or_below": 20, "penalty": -2 },
+      { "at_or_below": 5, "penalty": -4 }
+    ]
+  },
+  "demotion": {
+    "negative_comfort_adds": true,
+    "mood_below_30_adds": 2,
+    "hunger_at_95_adds": 3,
+    "rest_at_5_adds": 3,
+    "stability_at_2_adds": 2,
+    "drs_threshold": 8,
+    "pp_loss_per_day": 50,
+    "demote_pp_threshold": -100
+  },
+  "comfort_modifier": {
+    "divisor": 2,
+    "min": -5,
+    "max": 5
+  }
+}
+

@@ -1,0 +1,20 @@
+{
+  "version": 1,
+  "max_lines": 500,
+  "categories": [
+    "SYSTEM",
+    "INPUT",
+    "STATS",
+    "WORK",
+    "TRAVEL",
+    "STORE",
+    "ITEM",
+    "QUOTE",
+    "COMMENT",
+    "PROMOTION",
+    "DEMOTION",
+    "ROYALTY"
+  ],
+  "dev_mode_default": false
+}
+

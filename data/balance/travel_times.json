@@ -1,0 +1,33 @@
+{
+  "version": 1,
+  "travel_minutes": {
+    "by_tier": {
+      "1": { "Grocery": 15, "Mall": 25 },
+      "2": { "Grocery": 10, "Mall": 30 },
+      "3": { "Grocery": 35, "Mall": 50 },
+      "4": { "Grocery": 55, "Mall": 70 },
+      "5": { "Grocery": 30, "Mall": 45 },
+      "6": { "Grocery": 40, "Mall": 35 },
+      "7": { "Grocery": 35, "Mall": 55 },
+      "8": { "Grocery": 45, "Mall": 60 },
+      "9": { "Grocery": 20, "Mall": 25 },
+      "10": { "Grocery": 25, "Mall": 30 },
+      "11": { "Grocery": 30, "Mall": 35 },
+      "12": { "Grocery": 20, "Mall": 20 },
+      "13": { "Grocery": 20, "Mall": 25 },
+      "14": { "Grocery": 25, "Mall": 35 },
+      "15": { "Grocery": 15, "Mall": 20 },
+      "16": { "Grocery": 35, "Mall": 45 },
+      "17": { "Grocery": 30, "Mall": 40 },
+      "18": { "Grocery": 25, "Mall": 35 },
+      "19": { "Grocery": 15, "Mall": 15 },
+      "20": { "Grocery": 10, "Mall": 10 },
+      "21": { "Grocery": 60, "Mall": 75 },
+      "22": { "Grocery": 45, "Mall": 60 },
+      "23": { "Grocery": 50, "Mall": 65 },
+      "24": { "Grocery": 55, "Mall": 70 },
+      "25": { "Grocery": 70, "Mall": 85 }
+    }
+  }
+}
+

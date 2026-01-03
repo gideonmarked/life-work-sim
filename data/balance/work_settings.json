@@ -1,0 +1,66 @@
+{
+  "version": 1,
+  "description": "Work-related settings including productivity, salary modifiers, and progression",
+  
+  "productivity": {
+    "base_ep": 10,
+    "min_ep": 0,
+    "max_ep": 100,
+    "hunger_penalty_threshold": 80,
+    "rest_penalty_threshold": 20,
+    "missing_items_penalty": 3,
+    "missing_items_mood_penalty": 1
+  },
+  
+  "salary": {
+    "ep_divisor": 10,
+    "hourly_calculation": "base_pay * (ep / ep_divisor)",
+    "overtime_multiplier": 1.0,
+    "night_shift_bonus": 0
+  },
+  
+  "progress_points": {
+    "base_formula": "ep * (1 + rep/20) * (1 + stab/25)",
+    "reputation_divisor": 20,
+    "stability_divisor": 25,
+    "bonus_multipliers": {
+      "high_mood": 1.1,
+      "low_mood": 0.9,
+      "well_rested": 1.05,
+      "exhausted": 0.8
+    }
+  },
+  
+  "work_hours": {
+    "standard_shift_minutes": 60,
+    "max_consecutive_hours_before_burnout": 8,
+    "burnout_productivity_penalty": 5
+  },
+  
+  "promotion": {
+    "check_timing": "end_of_day",
+    "pp_reset_on_promotion": true,
+    "level_cap": 10
+  },
+  
+  "demotion": {
+    "risk_threshold": 5,
+    "pp_loss_per_risk_day": 20,
+    "demote_pp_threshold": -100,
+    "consecutive_days_required": 1
+  },
+  
+  "royalties": {
+    "eligible_branches": ["Coder", "Author", "VisualArtist", "Musician"],
+    "min_level_required": 4,
+    "base_creation_cost": 50,
+    "cost_per_level": 20,
+    "base_monthly_amount": 10,
+    "amount_per_level": 5,
+    "min_months": 3,
+    "max_months_base": 6,
+    "max_months_per_level": 2,
+    "max_months_cap": 24
+  }
+}
+

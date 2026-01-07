@@ -150,7 +150,8 @@ func get_most_recent_slot() -> int:
 	
 	for i in range(1, MAX_SLOTS + 1):
 		var info := get_slot_info(i)
-		if not info.is_empty() and not info.get("empty", true):
+		# get_slot_info returns {} for non-existent slots, so is_empty() check is sufficient
+		if not info.is_empty():
 			var last_played: float = info.get("last_played", 0)
 			if last_played > most_recent_time:
 				most_recent_time = last_played

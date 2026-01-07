@@ -57,6 +57,7 @@ extends Control
 @onready var speed_1x: Button = $BottomBar/HBox/SpeedContainer/Speed1x
 @onready var speed_2x: Button = $BottomBar/HBox/SpeedContainer/Speed2x
 @onready var speed_5x: Button = $BottomBar/HBox/SpeedContainer/Speed5x
+@onready var speed_10x: Button = $BottomBar/HBox/SpeedContainer/Speed10x
 @onready var pause_btn: Button = $BottomBar/HBox/SpeedContainer/PauseBtn
 @onready var console_btn: Button = $BottomBar/HBox/ConsoleBtn
 @onready var inventory_btn: Button = $BottomBar/HBox/InventoryBtn
@@ -138,14 +139,16 @@ func _ready() -> void:
 	_update_all_ui()
 	# Rebuild console to show any existing log entries (from loaded save)
 	_rebuild_console_from_log()
+	# Open console window by default
+	console_window.visible = true
 	print("[GameScreen] About to start time")
-	# Use start() for initial game, resume() if continuing from pause
-	if TimeManager.current_day == 1 and TimeManager.current_hour == 6 and TimeManager.current_minute == 0:
-		print("[GameScreen] Calling TimeManager.start() for new game")
-		TimeManager.start()
-	else:
-		print("[GameScreen] Calling TimeManager.resume() for continued game")
+	# Resume time if paused (TimeManager.start() is called in GameState.new_game())
+	# Only call resume() - start() was already called for new games
+	if TimeManager.is_paused():
+		print("[GameScreen] TimeManager was paused, resuming")
 		TimeManager.resume()
+	else:
+		print("[GameScreen] TimeManager already running")
 	print("[GameScreen] Time started, is_paused: %s" % TimeManager.is_paused())
 
 
@@ -305,6 +308,7 @@ func _connect_signals() -> void:
 	speed_1x.pressed.connect(_on_speed_1x)
 	speed_2x.pressed.connect(_on_speed_2x)
 	speed_5x.pressed.connect(_on_speed_5x)
+	speed_10x.pressed.connect(_on_speed_10x)
 	pause_btn.toggled.connect(_on_pause_toggled)
 	
 	# Floating window close buttons
@@ -359,14 +363,29 @@ func _update_character_display() -> void:
 
 
 func _update_needs_display() -> void:
-	hunger_bar.value = GameState.hunger
-	hunger_val.text = str(GameState.hunger)
+	# Belly Alarm: invert hunger so 100 = full, 0 = starving
+	var belly_alarm: int = 100 - GameState.hunger
+	hunger_bar.value = belly_alarm
+	hunger_val.text = str(belly_alarm)
+	hunger_val.add_theme_color_override("font_color", _get_need_color(belly_alarm))
 	
 	rest_bar.value = GameState.rest
 	rest_val.text = str(GameState.rest)
+	rest_val.add_theme_color_override("font_color", _get_need_color(GameState.rest))
 	
 	mood_bar.value = GameState.mood
 	mood_val.text = str(GameState.mood)
+	mood_val.add_theme_color_override("font_color", _get_need_color(GameState.mood))
+
+
+func _get_need_color(value: int) -> Color:
+	## Returns color based on need value: red (0-15), yellow (16-74), green (75-100)
+	if value <= 15:
+		return Color(1.0, 0.3, 0.3)  # Red - danger
+	elif value <= 74:
+		return Color(1.0, 0.85, 0.3)  # Yellow - caution
+	else:
+		return Color(0.3, 1.0, 0.4)  # Green - good
 
 
 func _update_stats_display() -> void:
@@ -538,7 +557,7 @@ func _log_daily_summary(day: int, save_slot: int) -> void:
 	# Needs status
 	ConsoleLog.log_stats("End of Day Status:")
 	ConsoleLog.log_stats("  Belly Alarm: %d | Eye-Lid Budget: %d | Vibe Spice: %d" % [
-		GameState.hunger,
+		100 - GameState.hunger,  # Inverted: 100 = full, 0 = starving
 		GameState.rest,
 		GameState.mood
 	])
@@ -606,8 +625,8 @@ func _show_daily_stats(day: int) -> void:
 	daily_progress_label.text = "Progress: %.0f / %d PP" % [GameState.progress_points, threshold]
 	daily_hours_label.text = "Hours Worked: %d" % _hours_worked_today
 	
-	# Needs
-	daily_hunger_label.text = "Belly Alarm: %d" % GameState.hunger
+	# Needs (Belly Alarm is inverted: 100 - hunger)
+	daily_hunger_label.text = "Belly Alarm: %d" % (100 - GameState.hunger)
 	daily_rest_label.text = "Eye-Lid Budget: %d" % GameState.rest
 	daily_mood_label.text = "Vibe Spice: %d" % GameState.mood
 	
@@ -920,7 +939,7 @@ func _create_inventory_row(item: Dictionary, qty: int, inv_type: String = "chara
 	if qty > 1:
 		item_name += " x%d" % qty
 	name_label.text = "  " + item_name
-	name_label.custom_minimum_size = Vector2(110, 0)
+	name_label.custom_minimum_size = Vector2(100, 0)
 	name_label.add_theme_font_size_override("font_size", 10)
 	row.add_child(name_label)
 	
@@ -929,12 +948,41 @@ func _create_inventory_row(item: Dictionary, qty: int, inv_type: String = "chara
 	if "food" in tags or "drink" in tags or "snack" in tags:
 		var use_btn := Button.new()
 		use_btn.text = "Eat"
-		use_btn.custom_minimum_size = Vector2(35, 20)
+		use_btn.custom_minimum_size = Vector2(30, 20)
 		use_btn.add_theme_font_size_override("font_size", 9)
 		use_btn.pressed.connect(_on_use_item.bind(item.get("id", ""), inv_type))
 		row.add_child(use_btn)
 	
+	# Add move button based on inventory type
+	var move_btn := Button.new()
+	if inv_type == "character":
+		move_btn.text = "→🏠"
+		move_btn.tooltip_text = "Move to Housing"
+		move_btn.pressed.connect(_on_move_to_housing.bind(item.get("id", "")))
+	else:
+		move_btn.text = "→📦"
+		move_btn.tooltip_text = "Move to Pocket"
+		move_btn.pressed.connect(_on_move_to_character.bind(item.get("id", "")))
+	
+	move_btn.custom_minimum_size = Vector2(32, 20)
+	move_btn.add_theme_font_size_override("font_size", 9)
+	row.add_child(move_btn)
+	
 	return row
+
+
+func _on_move_to_housing(item_id: String) -> void:
+	if GameState.move_item_to_housing(item_id):
+		_populate_inventory()
+		if housing_window.visible:
+			_populate_housing()
+
+
+func _on_move_to_character(item_id: String) -> void:
+	if GameState.move_item_to_character(item_id):
+		_populate_housing()
+		if inventory_window.visible:
+			_populate_inventory()
 
 
 func _on_use_item(item_id: String, _inv_type: String = "character") -> void:
@@ -1016,76 +1064,7 @@ func _populate_housing() -> void:
 	sep2.custom_minimum_size = Vector2(0, 10)
 	housing_items.add_child(sep2)
 	
-	# === Upgrade Options (tier 4+) ===
-	# Tiers 1-3 (Park Bench, Cardboard, Tent) are obtained via items from stores
-	# Tier 4+ are direct housing purchases
-	if GameState.living_tier < 25:
-		var upgrade_header := Label.new()
-		upgrade_header.text = "⬆️ Upgrades Available"
-		upgrade_header.add_theme_color_override("font_color", Color(0.9, 0.7, 0.4))
-		upgrade_header.add_theme_font_size_override("font_size", 11)
-		housing_items.add_child(upgrade_header)
-		
-		# Tier 1-3 hint
-		if GameState.living_tier < 4:
-			var hint_label := Label.new()
-			hint_label.text = "  (Buy Cardboard/Tent from stores)"
-			hint_label.add_theme_color_override("font_color", Color(0.5, 0.5, 0.5))
-			hint_label.add_theme_font_size_override("font_size", 9)
-			housing_items.add_child(hint_label)
-		
-		# Show next 3 available upgrades (starting from tier 4)
-		var shown := 0
-		var start_tier := maxi(4, GameState.living_tier + 1)
-		for tier in range(start_tier, 26):
-			if shown >= 3:
-				break
-			var upgrade_arr := Balance.get_living_arrangement(tier)
-			if upgrade_arr.is_empty():
-				continue
-			
-			var row := _create_housing_upgrade_row(upgrade_arr)
-			housing_items.add_child(row)
-			shown += 1
-
-
-func _create_housing_upgrade_row(arrangement: Dictionary) -> HBoxContainer:
-	var row := HBoxContainer.new()
-	var tier: int = arrangement.get("tier", 1)
-	var price: int = arrangement.get("price", 0)
-	
-	var name_label := Label.new()
-	name_label.text = arrangement.get("name", "Unknown")
-	name_label.custom_minimum_size = Vector2(100, 0)
-	name_label.add_theme_font_size_override("font_size", 10)
-	row.add_child(name_label)
-	
-	var price_label := Label.new()
-	price_label.text = "%d" % price
-	price_label.custom_minimum_size = Vector2(50, 0)
-	price_label.add_theme_font_size_override("font_size", 10)
-	if GameState.can_afford_living(tier):
-		price_label.add_theme_color_override("font_color", Color(0.9, 0.8, 0.4))
-	else:
-		price_label.add_theme_color_override("font_color", Color(0.5, 0.4, 0.4))
-	row.add_child(price_label)
-	
-	var buy_btn := Button.new()
-	buy_btn.text = "Buy"
-	buy_btn.custom_minimum_size = Vector2(40, 22)
-	buy_btn.add_theme_font_size_override("font_size", 9)
-	buy_btn.disabled = not GameState.can_afford_living(tier)
-	buy_btn.pressed.connect(_on_upgrade_living.bind(tier))
-	row.add_child(buy_btn)
-	
-	return row
-
-
-func _on_upgrade_living(tier: int) -> void:
-	if GameState.upgrade_living(tier):
-		_update_money_display()
-		_update_stats_display()
-		_populate_housing()
+	# Housing upgrades removed - upgrades handled through gameplay progression
 
 
 # === Career window handlers ===
@@ -1258,6 +1237,7 @@ func _on_speed_1x() -> void:
 	speed_1x.button_pressed = true
 	speed_2x.button_pressed = false
 	speed_5x.button_pressed = false
+	speed_10x.button_pressed = false
 
 
 func _on_speed_2x() -> void:
@@ -1266,6 +1246,7 @@ func _on_speed_2x() -> void:
 	speed_1x.button_pressed = false
 	speed_2x.button_pressed = true
 	speed_5x.button_pressed = false
+	speed_10x.button_pressed = false
 
 
 func _on_speed_5x() -> void:
@@ -1274,6 +1255,16 @@ func _on_speed_5x() -> void:
 	speed_1x.button_pressed = false
 	speed_2x.button_pressed = false
 	speed_5x.button_pressed = true
+	speed_10x.button_pressed = false
+
+
+func _on_speed_10x() -> void:
+	ConsoleLog.log_input("Speed set to 10x")
+	TimeManager.set_time_scale(10.0)
+	speed_1x.button_pressed = false
+	speed_2x.button_pressed = false
+	speed_5x.button_pressed = false
+	speed_10x.button_pressed = true
 
 
 func _on_pause_toggled(paused: bool) -> void:

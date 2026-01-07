@@ -6,6 +6,7 @@ extends Control
 
 @onready var new_game_btn: Button = $VBox/NewGameBtn
 @onready var continue_btn: Button = $VBox/ContinueBtn
+@onready var load_game_btn: Button = $VBox/LoadGameBtn
 @onready var settings_btn: Button = $VBox/SettingsBtn
 
 @onready var new_game_panel: Panel = $NewGamePanel
@@ -30,6 +31,7 @@ extends Control
 var selected_category: String = ""
 var selected_branch: String = ""
 var _slot_mode: String = ""  # "new" or "load"
+var _pending_delete_slot: int = -1
 
 # Window control state
 var _is_dragging: bool = false
@@ -91,6 +93,7 @@ func _connect_signals() -> void:
 	# Menu buttons
 	new_game_btn.pressed.connect(_on_new_game_pressed)
 	continue_btn.pressed.connect(_on_continue_pressed)
+	load_game_btn.pressed.connect(_on_load_game_pressed)
 	settings_btn.pressed.connect(_on_settings_pressed)
 	
 	# Category buttons
@@ -176,11 +179,20 @@ func _on_move_button_up() -> void:
 
 
 func _update_continue_button() -> void:
-	continue_btn.disabled = not SaveManager.has_any_saves()
+	# Continue requires a most recent save to exist
+	var recent := SaveManager.get_most_recent_slot()
+	continue_btn.disabled = recent <= 0
 	if continue_btn.disabled:
 		continue_btn.modulate.a = 0.5
 	else:
 		continue_btn.modulate.a = 1.0
+	
+	# Load Game requires any save to exist
+	load_game_btn.disabled = not SaveManager.has_any_saves()
+	if load_game_btn.disabled:
+		load_game_btn.modulate.a = 0.5
+	else:
+		load_game_btn.modulate.a = 1.0
 
 
 func _hide_branch_selection() -> void:
@@ -216,13 +228,17 @@ func _show_new_game_panel() -> void:
 
 
 func _on_continue_pressed() -> void:
+	## Continue directly loads the most recent save (last played character)
 	var recent := SaveManager.get_most_recent_slot()
 	if recent > 0:
 		if SaveManager.load_game(recent):
 			get_tree().change_scene_to_file("res://scenes/screens/GameScreen.tscn")
-	else:
-		_slot_mode = "load"
-		_show_slot_panel()
+
+
+func _on_load_game_pressed() -> void:
+	## Load Game shows the slot selection panel
+	_slot_mode = "load"
+	_show_slot_panel()
 
 
 func _on_settings_pressed() -> void:
@@ -288,26 +304,96 @@ func _show_slot_panel() -> void:
 	# Create slot buttons
 	var slots := SaveManager.get_all_slots_info()
 	for info in slots:
-		var btn := Button.new()
-		btn.custom_minimum_size = Vector2(350, 35)
+		var slot_num: int = info.get("slot", 1)
+		var is_empty: bool = info.get("empty", false)
 		
-		if info.get("empty", false):
-			btn.text = "Slot %d - Empty" % info.get("slot", 0)
+		# Create horizontal container for slot button and delete button
+		var hbox := HBoxContainer.new()
+		hbox.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		hbox.add_theme_constant_override("separation", 8)
+		
+		var btn := Button.new()
+		btn.custom_minimum_size = Vector2(0, 35)
+		btn.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		btn.alignment = HORIZONTAL_ALIGNMENT_LEFT
+		
+		if is_empty:
+			btn.text = "Slot %d - Empty" % slot_num
 			if _slot_mode == "load":
 				btn.disabled = true
 		else:
 			btn.text = "Slot %d - %s (Day %d, Lv%d %s)" % [
-				info.get("slot", 0),
+				slot_num,
 				info.get("character_name", "Unknown"),
 				info.get("day", 1),
 				info.get("position_level", 1),
 				info.get("branch", "")
 			]
 		
-		btn.pressed.connect(_on_slot_selected.bind(info.get("slot", 1)))
-		slot_container.add_child(btn)
+		btn.pressed.connect(_on_slot_selected.bind(slot_num))
+		hbox.add_child(btn)
+		
+		# Add delete button for non-empty slots in load mode
+		if _slot_mode == "load" and not is_empty:
+			var del_btn := Button.new()
+			del_btn.text = "🗑"
+			del_btn.custom_minimum_size = Vector2(35, 35)
+			del_btn.tooltip_text = "Delete this save"
+			del_btn.pressed.connect(_on_delete_slot_pressed.bind(slot_num))
+			hbox.add_child(del_btn)
+		
+		slot_container.add_child(hbox)
 	
 	slot_panel.visible = true
+
+
+func _on_delete_slot_pressed(slot: int) -> void:
+	_pending_delete_slot = slot
+	_show_delete_confirmation(slot)
+
+
+func _show_delete_confirmation(slot: int) -> void:
+	var info := SaveManager.get_slot_info(slot)
+	var char_name: String = info.get("character_name", "Unknown")
+	
+	# Create confirmation dialog
+	var dialog := ConfirmationDialog.new()
+	dialog.title = "Delete Save"
+	dialog.dialog_text = "Delete save slot %d (%s)?\nThis cannot be undone." % [slot, char_name]
+	dialog.ok_button_text = "Delete"
+	dialog.cancel_button_text = "Cancel"
+	dialog.confirmed.connect(_on_delete_confirmed)
+	dialog.canceled.connect(_on_delete_canceled)
+	dialog.close_requested.connect(_on_delete_canceled)
+	
+	add_child(dialog)
+	dialog.popup_centered()
+
+
+func _on_delete_confirmed() -> void:
+	if _pending_delete_slot > 0:
+		SaveManager.delete_slot(_pending_delete_slot)
+		_pending_delete_slot = -1
+		# Refresh the slot panel
+		_show_slot_panel()
+		# Update continue/load buttons in case we deleted the last save
+		_update_continue_button()
+		# Close slot panel if no more saves exist
+		if not SaveManager.has_any_saves():
+			slot_panel.visible = false
+	# Clean up dialog
+	_cleanup_delete_dialog()
+
+
+func _on_delete_canceled() -> void:
+	_pending_delete_slot = -1
+	_cleanup_delete_dialog()
+
+
+func _cleanup_delete_dialog() -> void:
+	for child in get_children():
+		if child is ConfirmationDialog:
+			child.queue_free()
 
 
 func _on_slot_selected(slot: int) -> void:

@@ -25,6 +25,8 @@ var work_settings: Dictionary = {}
 var events: Dictionary = {}
 var schedules: Dictionary = {}
 var work_tasks: Dictionary = {}
+var action_costs: Dictionary = {}
+var auto_grocery: Dictionary = {}
 
 # Branch metadata
 const CATEGORIES := {
@@ -64,6 +66,8 @@ func _load_all_data() -> void:
 	events = _load_json("events.json")
 	schedules = _load_json("schedules.json")
 	work_tasks = _load_json("work_tasks.json")
+	action_costs = _load_json("action_costs.json")
+	auto_grocery = _load_json("auto_grocery.json")
 	
 	var la_data := _load_json("living_arrangements.json")
 	living_arrangements = la_data.get("arrangements", [])
@@ -394,6 +398,73 @@ func roll_chance(category: String, key: String) -> bool:
 	## Returns true if random roll succeeds against the chance percentage
 	var chance: int = get_chance(category, key)
 	return randi() % 100 < chance
+
+
+# === Action Costs ===
+
+func get_action_rest_cost(action_name: String) -> int:
+	## Returns a random rest cost for the given action (positive = drains rest, negative = restores)
+	var costs: Dictionary = action_costs.get("rest_costs", {})
+	var action_data: Dictionary = costs.get(action_name.to_lower(), {})
+	
+	var min_cost: int = action_data.get("min", 0)
+	var max_cost: int = action_data.get("max", 0)
+	
+	if min_cost == max_cost:
+		return min_cost
+	
+	# Handle inverted ranges (when min > max for negative values)
+	if min_cost > max_cost:
+		return randi_range(max_cost, min_cost)
+	
+	return randi_range(min_cost, max_cost)
+
+
+func get_action_hunger_cost(action_name: String) -> int:
+	## Returns a random hunger cost for the given action (positive = increases hunger)
+	var costs: Dictionary = action_costs.get("hunger_costs", {})
+	var action_data: Dictionary = costs.get(action_name.to_lower(), {})
+	
+	var min_cost: int = action_data.get("min", 0)
+	var max_cost: int = action_data.get("max", 0)
+	
+	if min_cost == max_cost:
+		return min_cost
+	
+	return randi_range(min_cost, max_cost)
+
+
+# === Auto Grocery ===
+
+func get_grocery_budget_tier(money: int) -> Dictionary:
+	## Returns the appropriate budget tier settings based on current money
+	var tiers: Dictionary = auto_grocery.get("budget_tiers", {})
+	var priority: Array = auto_grocery.get("priority_order", [])
+	
+	# Go through tiers in order (desperate -> wealthy)
+	for tier_name in priority:
+		var tier: Dictionary = tiers.get(tier_name, {})
+		var max_money: int = tier.get("max_money", 0)
+		if money <= max_money:
+			tier["tier_name"] = tier_name
+			return tier
+	
+	# Fallback to last tier
+	if not priority.is_empty():
+		var last_tier: String = priority[-1]
+		var tier: Dictionary = tiers.get(last_tier, {})
+		tier["tier_name"] = last_tier
+		return tier
+	
+	return {}
+
+
+func get_grocery_shopping_rules() -> Dictionary:
+	return auto_grocery.get("shopping_rules", {})
+
+
+func get_grocery_scoring() -> Dictionary:
+	return auto_grocery.get("scoring", {})
 
 
 # === Character Remarks ===

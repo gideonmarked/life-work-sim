@@ -1,0 +1,67 @@
+{
+  "version": 1,
+  "description": "Rules for automatic grocery shopping when character has no food",
+  
+  "triggers": {
+    "no_food_threshold": 0,
+    "description": "Triggers auto-grocery when food count <= this value"
+  },
+  
+  "shopping_rules": {
+    "fill_character_slots_first": true,
+    "max_items_per_trip": 5,
+    "min_money_reserve": 2,
+    "minutes_per_item_min": 1,
+    "minutes_per_item_max": 3,
+    "description": "Reserve some money for emergencies, shopping takes 1-3 mins per item"
+  },
+  
+  "budget_tiers": {
+    "desperate": {
+      "max_money": 10,
+      "max_price_per_item": 5,
+      "prefer_tags": ["snack", "food"],
+      "avoid_tags": [],
+      "description": "Very low budget - buy anything edible"
+    },
+    "low": {
+      "max_money": 30,
+      "max_price_per_item": 8,
+      "prefer_tags": ["snack", "starter"],
+      "avoid_tags": ["bad"],
+      "description": "Low budget - cheap food, avoid bad quality"
+    },
+    "medium": {
+      "max_money": 75,
+      "max_price_per_item": 15,
+      "prefer_tags": ["food", "snack"],
+      "avoid_tags": ["bad"],
+      "description": "Medium budget - decent meals"
+    },
+    "comfortable": {
+      "max_money": 150,
+      "max_price_per_item": 25,
+      "prefer_tags": ["food", "healthy"],
+      "avoid_tags": ["bad"],
+      "description": "Comfortable budget - quality meals"
+    },
+    "wealthy": {
+      "max_money": 999999,
+      "max_price_per_item": 50,
+      "prefer_tags": ["food", "healthy", "gourmet"],
+      "avoid_tags": ["bad"],
+      "description": "Wealthy - buy premium food"
+    }
+  },
+  
+  "priority_order": ["desperate", "low", "medium", "comfortable", "wealthy"],
+  
+  "scoring": {
+    "no_food_bonus": 80,
+    "low_food_bonus": 40,
+    "already_have_food_penalty": 30,
+    "already_traveling_penalty": 100,
+    "description": "Score modifiers for travel_grocery action"
+  }
+}
+

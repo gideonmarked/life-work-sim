@@ -190,7 +190,7 @@ GameState.position_level  # 1-10
 GameState.progress_points # PP toward next level
 GameState.living_tier     # 1-25
 GameState.money
-GameState.hunger          # 0-100 (lower is better)
+GameState.hunger          # 0-100 (higher is better)
 GameState.rest            # 0-100 (higher is better)
 GameState.mood            # 0-100 (higher is better)
 GameState.inventory       # Array of {item_id, quantity}

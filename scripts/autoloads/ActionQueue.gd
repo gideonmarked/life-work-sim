@@ -18,7 +18,8 @@ enum ActionType {
 	TRAVEL_MALL,
 	SHOP,
 	REST,
-	CREATE_RELEASE
+	CREATE_RELEASE,
+	NAP
 }
 
 # Action definitions with base durations (in game minutes)
@@ -31,7 +32,8 @@ const ACTION_DATA := {
 	ActionType.TRAVEL_MALL: {"name": "Go to Mall", "duration": 30, "icon": "→"},
 	ActionType.SHOP: {"name": "Shop", "duration": 20, "icon": "🛒"},
 	ActionType.REST: {"name": "Rest", "duration": 30, "icon": "◇"},
-	ActionType.CREATE_RELEASE: {"name": "Create Release", "duration": 120, "icon": "★"}
+	ActionType.CREATE_RELEASE: {"name": "Create Release", "duration": 120, "icon": "★"},
+	ActionType.NAP: {"name": "Nap", "duration": 60, "icon": "💤"}
 }
 
 var queue: Array = []  # Array of action dictionaries
@@ -41,6 +43,34 @@ var is_paused: bool = false
 
 var _tick_accumulator: float = 0.0
 var _fast_forwarding: bool = false  # Guard against processing during sleep fast-forward
+
+# Map ActionType to JSON key names for rest costs
+const ACTION_REST_KEYS := {
+	ActionType.IDLE: "idle",
+	ActionType.WORK: "work",
+	ActionType.SLEEP: "sleep",
+	ActionType.EAT: "eat",
+	ActionType.TRAVEL_GROCERY: "travel_grocery",
+	ActionType.TRAVEL_MALL: "travel_mall",
+	ActionType.SHOP: "shop",
+	ActionType.REST: "rest",
+	ActionType.CREATE_RELEASE: "create_release",
+	ActionType.NAP: "nap"
+}
+
+
+func _get_action_rest_cost(action_type: ActionType) -> int:
+	var key: String = ACTION_REST_KEYS.get(action_type, "")
+	if key.is_empty():
+		return 0
+	return Balance.get_action_rest_cost(key)
+
+
+func _get_action_hunger_cost(action_type: ActionType) -> int:
+	var key: String = ACTION_REST_KEYS.get(action_type, "")
+	if key.is_empty():
+		return 0
+	return Balance.get_action_hunger_cost(key)
 
 
 func _ready() -> void:
@@ -144,6 +174,15 @@ func _execute_action_tick() -> void:
 			# Check if fully rested
 			if GameState.rest >= 95:
 				time_remaining = 0  # End sleep early
+		ActionType.NAP:
+			GameState.is_sleeping = true  # Napping counts as sleeping for rest purposes
+			GameState.is_working = false
+			# Nap grants rest each tick (chance-based from Balance)
+			if Balance.roll_chance("nap", "rest_recovery_chance"):
+				GameState.rest = mini(GameState.rest + 1, 100)
+			# End nap early if well rested (70+)
+			if GameState.rest >= 70:
+				time_remaining = 0
 		ActionType.TRAVEL_GROCERY, ActionType.TRAVEL_MALL:
 			GameState.is_traveling = true
 		_:
@@ -163,6 +202,9 @@ func _complete_current_action() -> void:
 			ConsoleLog.log_work("Completed: %s (+%.1f PP)" % [completed.name, pp_gained])
 		ActionType.SLEEP:
 			GameState.is_sleeping = false
+		ActionType.NAP:
+			GameState.is_sleeping = false
+			ConsoleLog.log_stats("Woke from nap (Eye-Lid Budget: %d)" % GameState.rest)
 		ActionType.EAT:
 			var item_id: String = completed.data.get("item_id", "")
 			if not item_id.is_empty():
@@ -170,10 +212,34 @@ func _complete_current_action() -> void:
 					GameState.eat_item(item_id)
 				else:
 					ConsoleLog.log_warning("Cannot eat - no %s in inventory!" % item_id)
-		ActionType.TRAVEL_GROCERY, ActionType.TRAVEL_MALL:
+		ActionType.TRAVEL_GROCERY:
 			GameState.is_traveling = false
+			# Queue shopping action upon arrival
+			CharacterAI.queue_grocery_shopping()
+		ActionType.TRAVEL_MALL:
+			GameState.is_traveling = false
+		ActionType.SHOP:
+			# Actually buy the items when shopping completes
+			CharacterAI.complete_grocery_shopping()
 		ActionType.CREATE_RELEASE:
 			GameState.create_release()
+	
+	# Apply rest cost from balance data
+	var rest_cost: int = _get_action_rest_cost(completed.type)
+	if rest_cost != 0:
+		var old_rest: int = GameState.rest
+		GameState.rest = clampi(GameState.rest - rest_cost, 0, 100)
+		if rest_cost > 0:
+			DebugProfiler.log_debug("Rest cost: -%d (was %d, now %d)" % [rest_cost, old_rest, GameState.rest])
+		else:
+			DebugProfiler.log_debug("Rest gained: +%d (was %d, now %d)" % [-rest_cost, old_rest, GameState.rest])
+	
+	# Apply hunger cost from balance data
+	var hunger_cost: int = _get_action_hunger_cost(completed.type)
+	if hunger_cost != 0:
+		var old_hunger: int = GameState.hunger
+		GameState.hunger = clampi(GameState.hunger + hunger_cost, 0, 100)
+		DebugProfiler.log_debug("Hunger: +%d (was %d, now %d)" % [hunger_cost, old_hunger, GameState.hunger])
 	
 	action_completed.emit(completed)
 	
@@ -189,15 +255,22 @@ func _start_next_action() -> void:
 	DebugProfiler.log_function_enter("ActionQueue._start_next_action")
 	
 	if queue.is_empty():
-		# No actions queued, start idle
-		DebugProfiler.log_debug("ActionQueue: Queue empty, starting IDLE")
-		current_action = _create_action(ActionType.IDLE)
-		time_remaining = float(current_action.duration)
-		action_started.emit(current_action)
-		queue_changed.emit()
-		ConsoleLog.log_system("Started: %s (%d min)" % [current_action.name, current_action.duration])
-		DebugProfiler.log_function_exit("ActionQueue._start_next_action")
-		return
+		# Queue empty - ask AI to fill it before defaulting to idle
+		DebugProfiler.log_debug("ActionQueue: Queue empty, requesting AI to fill")
+		if CharacterAI.is_enabled():
+			CharacterAI.force_decide()
+		
+		# Check again after AI decision
+		if queue.is_empty():
+			# Still empty, start idle as fallback
+			DebugProfiler.log_debug("ActionQueue: Queue still empty after AI, starting IDLE")
+			current_action = _create_action(ActionType.IDLE)
+			time_remaining = float(current_action.duration)
+			action_started.emit(current_action)
+			queue_changed.emit()
+			ConsoleLog.log_system("Started: %s (%d min)" % [current_action.name, current_action.duration])
+			DebugProfiler.log_function_exit("ActionQueue._start_next_action")
+			return
 	
 	# Pop from front (FIFO)
 	current_action = queue.pop_front()
@@ -216,6 +289,11 @@ func _start_next_action() -> void:
 		return
 	
 	ConsoleLog.log_system("Started: %s (%d min)" % [current_action.name, current_action.duration])
+	
+	# After starting an action, ensure queue stays filled
+	if CharacterAI.is_enabled() and queue.size() < MAX_QUEUE_SIZE - 1:
+		CharacterAI.force_decide()
+	
 	DebugProfiler.log_function_exit("ActionQueue._start_next_action")
 
 
@@ -293,11 +371,13 @@ func _handle_sleep_fast_forward() -> void:
 	
 	ConsoleLog.log_system("☀ Woke up at 6:00 AM, Day %d" % TimeManager.current_day)
 	
-	# If we crossed day boundaries during sleep, emit day_started now (after sleep complete)
-	# This allows daily tracking to reset properly
+	# If we crossed day boundaries during sleep, emit day signals now (after sleep complete)
+	# This shows the daily summary and resets daily tracking
 	if TimeManager.current_day != start_day:
-		DebugProfiler.log_debug("Sleep: Crossed days %d -> %d, emitting day_started" % [start_day, TimeManager.current_day])
-		# Note: We don't emit day_ended because we don't want to show daily stats/pause for sleep nights
+		DebugProfiler.log_debug("Sleep: Crossed days %d -> %d, emitting day signals" % [start_day, TimeManager.current_day])
+		# Emit day_ended for the previous day to show daily summary
+		TimeManager.day_ended.emit(start_day)
+		# Then emit day_started for the new day
 		TimeManager.day_started.emit(TimeManager.current_day)
 	
 	action_completed.emit({"type": ActionType.SLEEP, "name": "Sleep", "duration": minutes_until_6am})
@@ -370,9 +450,76 @@ func clear_queue() -> void:
 	queue_changed.emit()
 
 
+func cancel_current_action() -> void:
+	## Immediately cancels the current action without completing it
+	## Resets all state flags and clears current action
+	if current_action.is_empty():
+		return
+	
+	var cancelled_name: String = current_action.get("name", "Unknown")
+	var cancelled_type: int = current_action.get("type", -1)
+	
+	# Reset all state flags based on what was being done
+	match cancelled_type:
+		ActionType.WORK:
+			GameState.is_working = false
+		ActionType.SLEEP, ActionType.NAP:
+			GameState.is_sleeping = false
+		ActionType.TRAVEL_GROCERY, ActionType.TRAVEL_MALL:
+			GameState.is_traveling = false
+	
+	# Clear current action
+	current_action = {}
+	time_remaining = 0.0
+	
+	ConsoleLog.log_system("Cancelled: %s" % cancelled_name)
+	queue_changed.emit()
+
+
 func skip_current() -> void:
 	time_remaining = 0
 	_complete_current_action()
+
+
+func interrupt_work_for_emergency() -> float:
+	## Interrupts current work action due to emergency (critical hunger/exhaustion)
+	## Awards partial PP based on work completed, returns PP gained
+	## Returns 0 if not currently working
+	if current_action.is_empty() or current_action.type != ActionType.WORK:
+		return 0.0
+	
+	GameState.is_working = false
+	
+	# Calculate partial PP based on time worked
+	var total_duration: float = float(current_action.duration)
+	var time_worked: float = total_duration - time_remaining
+	var completion_ratio: float = time_worked / total_duration if total_duration > 0 else 0.0
+	
+	# Award partial PP (at least 10% if any work was done)
+	var partial_pp: float = 0.0
+	if time_worked > 0:
+		var full_pp: float = GameState.add_work_pp()  # Get what full completion would give
+		# But we only keep the partial amount
+		var excess_pp: float = full_pp * (1.0 - completion_ratio)
+		GameState.progress_points -= excess_pp  # Remove the unearned portion
+		partial_pp = full_pp - excess_pp
+		
+		ConsoleLog.log_work("⚠ Work interrupted! Partial: %s (%.0f%% done, +%.1f PP)" % [
+			current_action.name, completion_ratio * 100, partial_pp
+		])
+	else:
+		ConsoleLog.log_work("⚠ Work interrupted before starting: %s" % current_action.name)
+	
+	# Clear current action and emit completion
+	var interrupted: Dictionary = current_action.duplicate()
+	interrupted["interrupted"] = true
+	action_completed.emit(interrupted)
+	
+	current_action = {}
+	time_remaining = 0.0
+	queue_changed.emit()
+	
+	return partial_pp
 
 
 func get_queue() -> Array:
@@ -438,6 +585,10 @@ func queue_rest(minutes: int = 30) -> void:
 func queue_create_release() -> void:
 	if GameState.can_create_release():
 		add_action(ActionType.CREATE_RELEASE)
+
+
+func queue_nap(minutes: int = 60) -> void:
+	add_action(ActionType.NAP, {"duration": minutes})
 
 
 # === Save/Load ===

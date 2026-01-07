@@ -90,10 +90,8 @@ func _ready() -> void:
 
 
 func _on_minute_passed(_time: Dictionary) -> void:
-	if is_traveling:
-		travel_minutes_left -= 1
-		if travel_minutes_left <= 0:
-			_complete_travel()
+	# Travel completion is now handled by ActionQueue._complete_current_action
+	# No need to track travel timer here
 	
 	# Passive need changes
 	_update_passive_needs()
@@ -152,13 +150,11 @@ func _update_passive_needs() -> void:
 	var old_rest := rest
 	var old_mood := mood
 	
-	# Hunger increases over time (chance from balance file)
-	if Balance.roll_chance("needs", "hunger_increase_chance"):
-		hunger = mini(hunger + 1, 100)
+	# Hunger is now drained on action COMPLETION (see ActionQueue._complete_current_action)
+	# No passive per-minute hunger drain - it's handled by action_costs.json
 	
-	# Rest decreases when awake
-	if not is_sleeping and Balance.roll_chance("needs", "rest_decrease_chance"):
-		rest = maxi(rest - 1, 0)
+	# Rest is now drained on action COMPLETION (see ActionQueue._complete_current_action)
+	# No passive per-minute rest drain - it's handled by action_costs.json
 	
 	# Mood affected by needs
 	if hunger >= 80 or rest <= 20:
@@ -169,10 +165,18 @@ func _update_passive_needs() -> void:
 	_try_trigger_random_remark()
 	
 	# Log critical need warnings (only when crossing thresholds)
-	if hunger >= 90 and old_hunger < 90:
-		ConsoleLog.log_stats("⚠ CRITICAL: Belly Alarm at %d! Eat something soon!" % hunger)
-	elif hunger >= 70 and old_hunger < 70:
-		ConsoleLog.log_stats("Warning: Belly Alarm rising (%d)" % hunger)
+	# Belly Alarm is displayed inverted: 100 - hunger (so low = bad)
+	var belly_alarm: int = 100 - hunger
+	var old_belly: int = 100 - old_hunger
+	
+	# EMERGENCY: If Belly Alarm drops to critical (< 15), interrupt work and eat
+	if belly_alarm < 15 and old_belly >= 15:
+		ConsoleLog.log_stats("⚠ CRITICAL: Belly Alarm at %d! Must eat NOW!" % belly_alarm)
+		CharacterAI.check_emergency_hunger()
+	elif belly_alarm <= 10 and old_belly > 10:
+		ConsoleLog.log_stats("⚠ CRITICAL: Belly Alarm at %d! Eat something soon!" % belly_alarm)
+	elif belly_alarm <= 30 and old_belly > 30:
+		ConsoleLog.log_stats("Warning: Belly Alarm dropping (%d)" % belly_alarm)
 	
 	if rest <= 10 and old_rest > 10:
 		ConsoleLog.log_stats("⚠ CRITICAL: Eye-Lid Budget at %d! Sleep needed!" % rest)
@@ -204,8 +208,17 @@ func add_work_pp() -> float:
 	# Check for promotion eligibility (actual promotion happens at end of day)
 	var threshold := Balance.get_promotion_threshold(branch, position_level)
 	if progress_points >= threshold and position_level < 10 and not _pending_promotion:
-		_pending_promotion = true
-		ConsoleLog.log_work("🎯 Promotion threshold reached! Will be promoted at end of day.")
+		# Also check if we have required items for NEXT level
+		if has_required_items_for_promotion():
+			_pending_promotion = true
+			ConsoleLog.log_work("🎯 Promotion threshold reached! Will be promoted at end of day.")
+		else:
+			var missing := get_missing_items_for_promotion()
+			var missing_names: Array = []
+			for item_id in missing:
+				var item := Balance.get_item(item_id)
+				missing_names.append(item.get("name", item_id))
+			ConsoleLog.log_work("⚠ PP threshold reached but missing items: %s" % ", ".join(missing_names))
 	
 	stats_changed.emit()
 	return pp_gain
@@ -806,6 +819,81 @@ func remove_item_from_la(item_id: String, quantity: int = 1) -> bool:
 	return false
 
 
+func move_item_to_housing(item_id: String, quantity: int = 1) -> bool:
+	## Move item from character inventory to housing inventory
+	if not has_item_in_character(item_id):
+		return false
+	
+	# Check if housing has space
+	var available_slots := get_available_la_slots()
+	var item := Balance.get_item(item_id)
+	var stackable: bool = item.get("stackable", false)
+	
+	# If not stackable and no space, fail
+	if not stackable and available_slots <= 0:
+		# Check if item already exists in LA (shouldn't for non-stackable but just in case)
+		if not has_item_in_la(item_id):
+			ConsoleLog.log_warning("No space in housing inventory!")
+			return false
+	
+	# If stackable, check if we can stack or need new slot
+	if stackable:
+		var existing_in_la := false
+		for slot in la_inventory:
+			if slot.get("item_id", "") == item_id:
+				existing_in_la = true
+				break
+		if not existing_in_la and available_slots <= 0:
+			ConsoleLog.log_warning("No space in housing inventory!")
+			return false
+	
+	# Remove from character
+	if not remove_item_from_character(item_id, quantity):
+		return false
+	
+	# Add to housing
+	add_item_to_la(item_id, quantity, false)
+	ConsoleLog.log_store("Moved %s to housing" % item.get("name", item_id))
+	return true
+
+
+func move_item_to_character(item_id: String, quantity: int = 1) -> bool:
+	## Move item from housing inventory to character inventory
+	if not has_item_in_la(item_id):
+		return false
+	
+	# Check if character has space
+	var available_slots := get_available_character_slots()
+	var item := Balance.get_item(item_id)
+	var stackable: bool = item.get("stackable", false)
+	
+	# If not stackable and no space, fail
+	if not stackable and available_slots <= 0:
+		if not has_item_in_character(item_id):
+			ConsoleLog.log_warning("No space in character inventory!")
+			return false
+	
+	# If stackable, check if we can stack or need new slot
+	if stackable:
+		var existing_in_char := false
+		for slot in character_inventory:
+			if slot.get("item_id", "") == item_id:
+				existing_in_char = true
+				break
+		if not existing_in_char and available_slots <= 0:
+			ConsoleLog.log_warning("No space in character inventory!")
+			return false
+	
+	# Remove from housing
+	if not remove_item_from_la(item_id, quantity):
+		return false
+	
+	# Add to character
+	add_item_to_character(item_id, quantity, false)
+	ConsoleLog.log_store("Moved %s to pocket" % item.get("name", item_id))
+	return true
+
+
 func get_total_inventory_space() -> int:
 	## Total space across both inventories
 	return MAX_CHARACTER_INVENTORY + max_la_inventory_slots
@@ -821,6 +909,36 @@ func can_add_food_or_drink() -> bool:
 	if character_inventory.size() < MAX_CHARACTER_INVENTORY:
 		return true
 	return la_inventory.size() < max_la_inventory_slots
+
+
+func count_food_items() -> int:
+	## Count total food/snack items in both inventories
+	var count: int = 0
+	var all_slots: Array = character_inventory + la_inventory
+	for slot in all_slots:
+		var item_id: String = slot.get("item_id", "")
+		var item: Dictionary = Balance.get_item(item_id)
+		var tags: Array = item.get("tags", [])
+		if "food" in tags or "snack" in tags or "drink" in tags:
+			count += slot.get("quantity", 1)
+	return count
+
+
+func get_available_food_slots() -> int:
+	## Get number of slots available for food (character + LA storage)
+	var char_available: int = MAX_CHARACTER_INVENTORY - character_inventory.size()
+	var la_available: int = max_la_inventory_slots - la_inventory.size()
+	return char_available + la_available
+
+
+func get_available_character_slots() -> int:
+	## Get slots available in character inventory specifically
+	return MAX_CHARACTER_INVENTORY - character_inventory.size()
+
+
+func get_available_la_slots() -> int:
+	## Get slots available in living arrangement storage
+	return max_la_inventory_slots - la_inventory.size()
 
 
 # === Fashion/Equipment ===
@@ -1019,7 +1137,31 @@ func get_living_name() -> String:
 	return living.get("name", "Unknown")
 
 
+func has_required_items_for_promotion() -> bool:
+	## Check if we have items required for the NEXT level (for promotion)
+	var next_pos := Balance.get_position(branch, position_level + 1)
+	var requires: Array = next_pos.get("requires", [])
+	
+	for item_id in requires:
+		if not has_item(item_id):
+			return false
+	return true
+
+
+func get_missing_items_for_promotion() -> Array:
+	## Get items missing for the NEXT level (for promotion)
+	var next_pos := Balance.get_position(branch, position_level + 1)
+	var requires: Array = next_pos.get("requires", [])
+	var missing := []
+	
+	for item_id in requires:
+		if not has_item(item_id):
+			missing.append(item_id)
+	return missing
+
+
 func has_required_items() -> bool:
+	## Check if we have items required for CURRENT level
 	var pos := Balance.get_position(branch, position_level)
 	var requires: Array = pos.get("requires", [])
 	
@@ -1030,6 +1172,7 @@ func has_required_items() -> bool:
 
 
 func get_missing_items() -> Array:
+	## Get items missing for CURRENT level
 	var pos := Balance.get_position(branch, position_level)
 	var requires: Array = pos.get("requires", [])
 	var missing := []
@@ -1113,4 +1256,3 @@ func load_state(data: Dictionary) -> void:
 	is_traveling = false
 	is_working = false
 	is_sleeping = false
-

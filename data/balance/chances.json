@@ -3,8 +3,7 @@
   "description": "Probability and chance values for game events (values are percentages 0-100 or ratios)",
   
   "needs": {
-    "hunger_increase_chance": 33,
-    "rest_decrease_chance": 20,
+    "hunger_increase_chance": 16,
     "mood_decrease_from_needs_chance": 10,
     "comment_after_travel_chance": 25,
     "comment_after_purchase_chance": 20,
@@ -19,6 +18,10 @@
   "sleep": {
     "rest_recovery_chance": 50,
     "hunger_while_sleeping_chance": 10
+  },
+  
+  "nap": {
+    "rest_recovery_chance": 40
   },
   
   "character_remarks": {
